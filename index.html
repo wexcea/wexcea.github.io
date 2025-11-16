@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wexcea - Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Prompt:wght@300;400;600;700&family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --background-blur: 2px;
+            --background-type: 'video';
+            --background-url: 'https://i.pinimg.com/1200x/10/77/61/107761414d06c715eaeaafae60f85025.jpg';
+            --video-url: 'https://raw.githubusercontent.com/wexcea/rbx-scripts/main/assets/Background-video.mp4';
+            --youtube-url: '';
+            
+            --primary-red: #ef4444;
+            --secondary-red: #dc2626;
+            --light-red: #f87171;
+            --dark-red: #b91c1c;
+            --accent-red: #e11d48;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background-image, .background-video, .background-youtube {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(var(--background-blur));
+            opacity: 0.3;
+            display: none;
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.2), rgba(0, 0, 0, 0.85));
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #450a0a, #7f1d1d, #991b1b);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .loading-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--light-red);
+            border-radius: 50%;
+            animation: dotPulse 1.5s ease-in-out infinite;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        .loading-text {
+            font-family: 'Space Grotesk', 'Noto Sans Thai', 'Sarabun', sans-serif;
+            font-size: 18px;
+            color: var(--light-red);
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        .loading-screen.hidden { opacity: 0; visibility: hidden; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .main-content { min-height: 100vh; padding: 60px 0; opacity: 0; animation: fadeInUp 1s ease-out 0.5s forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .hero-title {
+            font-family: 'Outfit', 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            text-align: center;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--dark-red), var(--primary-red), var(--light-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+            animation: glow 2s ease-in-out infinite alternate;
+            letter-spacing: -2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hero-logo {
+            width: clamp(60px, 10vw, 100px);
+            height: clamp(60px, 10vw, 100px);
+            border-radius: 50%;
+            border: 3px solid var(--light-red);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+            object-fit: cover;
+        }
+
+        @keyframes glow { from { filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.5)); } to { filter: drop-shadow(0 0 30px rgba(239, 68, 68, 0.8)); } }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--light-red);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--light-red);
+        }
+
+        .search-container {
+            max-width: 700px;
+            margin: 15px auto 50px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            background: rgba(239, 68, 68, 0.05);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(239, 68, 68, 0.25);
+            border-radius: 50px;
+            padding: 18px 60px 18px 25px;
+            font-family: 'Inter', 'Noto Sans Thai', 'Sarabun', sans-serif;
+            font-size: 16px;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-box:focus {
+            border-color: var(--light-red);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+        }
+
+        .search-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--light-red);
+        }
+
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .script-card {
+            background: rgba(239, 68, 68, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .script-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .script-card:hover::before {
+            left: 100%;
+        }
+
+        .script-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+            border-color: var(--light-red);
+        }
+
+        .script-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .script-card:hover .script-logo {
+            border-color: var(--light-red);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+        }
+
+        .script-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .script-name {
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--light-red);
+            margin-bottom: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .script-description {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .arrow-button {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, var(--dark-red), var(--primary-red));
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .arrow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .arrow-button:hover::before {
+            left: 100%;
+        }
+
+        .arrow-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            transition: transform 0.3s ease;
+        }
+
+        .arrow-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
+        }
+
+        .arrow-button:hover svg {
+            transform: translateX(3px);
+        }
+
+        .arrow-button:active {
+            transform: scale(1.05);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 0 15px; }
+            .main-content { padding: 40px 0; }
+            .scripts-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .script-card {
+                padding: 15px;
+            }
+            .script-logo {
+                width: 60px;
+                height: 60px;
+            }
+            .search-box {
+                padding: 15px 50px 15px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <img id="backgroundImage" class="background-image" src="" alt="Background">
+        <video id="backgroundVideo" class="background-video" autoplay muted loop playsinline>
+            <source src="" type="video/mp4">
+        </video>
+        <iframe id="backgroundYoutube" class="background-youtube" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="background-overlay"></div>
+    </div>
+
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <h1 class="hero-title">
+                <img src="https://raw.githubusercontent.com/wexcea/rbx-scripts/refs/heads/main/assets/Logo-Tittle.png" alt="Wexcea Logo" class="hero-logo">
+                Wexcea
+            </h1>
+            
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@gexcea?_r=1&_t=ZS-91PMPKPiMNu" target="_blank" class="social-icon" title="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3v178.8A162.6 162.6 0 1 1 185 188.3v89.3a74.6 74.6 0 1 0 52.2 71.2V0h88a121.2 121.2 0 0 0 1.9 22.2 122.2 122.2 0 0 0 35.5 71.5 121.4 121.4 0 0 0 52.5 34.4 121.5 121.5 0 0 0 32.9 4.5v77.3z"/>
+                    </svg>
+                </a>
+                <a href="https://discord.gg/VjTJdJ8m2u" target="_blank" class="social-icon" title="Discord">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                        <path d="M524.5 69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9 337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0 -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0 0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0 0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0 0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7 9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9 .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8 1.9 1.9 0 0 0 -1 2.6 391.1 391.1 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486 0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5 337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8 59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4 219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-box" id="searchBox" placeholder="Search scripts...">
+                <div class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="scripts-grid" id="scriptsGrid">
+                <!-- Script cards will be dynamically inserted here -->
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                No scripts found
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample script data
+        const scripts = [
+            {
+                id: 1,
+                name: "99 Nights in the Forest",
+                description: "Auto Farm Diamond Script",
+                logo: "https://raw.githubusercontent.com/wexcea/rbx-scripts/refs/heads/main/assets/Map-logo/99-nights.jpg",
+                url: "https://wexcea.github.io/rbx-scripts/99n-forest-auto-diamond"
+            }
+        ];
+
+        function getYouTubeEmbedUrl(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            
+            if (match && match[2].length === 11) {
+                return `https://www.youtube.com/embed/${match[2]}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playlist=${match[2]}`;
+            }
+            return null;
+        }
+
+        function initBackground() {
+            const backgroundType = getComputedStyle(document.documentElement).getPropertyValue('--background-type').replace(/['"]/g, '');
+            const backgroundUrl = getComputedStyle(document.documentElement).getPropertyValue('--background-url').replace(/['"]/g, '');
+            const videoUrl = getComputedStyle(document.documentElement).getPropertyValue('--video-url').replace(/['"]/g, '');
+            const youtubeUrl = getComputedStyle(document.documentElement).getPropertyValue('--youtube-url').replace(/['"]/g, '');            
+            setBackground(backgroundType, backgroundType === 'youtube' ? youtubeUrl : backgroundType === 'video' ? videoUrl : backgroundUrl);
+        }
+
+        function setBackground(type, url) {
+            const backgroundImage = document.getElementById('backgroundImage');
+            const backgroundVideo = document.getElementById('backgroundVideo');
+            const backgroundYoutube = document.getElementById('backgroundYoutube');
+            backgroundImage.style.display = 'none';
+            backgroundVideo.style.display = 'none';
+            backgroundYoutube.style.display = 'none';
+            if (type === 'youtube') {
+                const embedUrl = getYouTubeEmbedUrl(url);
+                if (embedUrl) {
+                    backgroundYoutube.style.display = 'block';
+                    backgroundYoutube.src = embedUrl;
+                } else {
+                    backgroundImage.style.display = 'block';
+                    backgroundImage.src = getComputedStyle(document.documentElement).getPropertyValue('--background-url').replace(/['"]/g, '');
+                }
+            } else if (type === 'video') {
+                backgroundVideo.style.display = 'block';
+                backgroundVideo.src = url;
+                backgroundVideo.loop = true;
+                backgroundVideo.muted = true;
+                backgroundVideo.autoplay = true;
+                backgroundVideo.playsInline = true;                
+            } else {
+                backgroundImage.style.display = 'block';
+                backgroundImage.src = url;
+            }
+        }
+
+        function hideLoading() {
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.classList.add('hidden');
+            }, 2000);
+        }
+
+        function renderScripts(scriptsToRender) {
+            const scriptsGrid = document.getElementById('scriptsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            scriptsGrid.innerHTML = '';
+            
+            if (scriptsToRender.length === 0) {
+                scriptsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            scriptsGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+            
+            scriptsToRender.forEach(script => {
+                const card = document.createElement('div');
+                card.className = 'script-card';
+                card.innerHTML = `
+                    <img src="${script.logo}" alt="${script.name}" class="script-logo">
+                    <div class="script-info">
+                        <div class="script-name">${script.name}</div>
+                        <div class="script-description">${script.description}</div>
+                    </div>
+                    <button class="arrow-button" onclick="viewScript(${script.id})">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                        </svg>
+                    </button>
+                `;
+                scriptsGrid.appendChild(card);
+            });
+        }
+
+        function viewScript(id) {
+            const script = scripts.find(s => s.id === id);
+            if (script && script.url) {
+                window.location.href = script.url;
+            }
+        }
+
+        function handleSearch(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredScripts = scripts.filter(script => 
+                script.name.toLowerCase().includes(searchTerm) || 
+                script.description.toLowerCase().includes(searchTerm)
+            );
+            renderScripts(filteredScripts);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initBackground();
+            hideLoading();
+            renderScripts(scripts);
+            
+            const searchBox = document.getElementById('searchBox');
+            searchBox.addEventListener('input', handleSearch);
+        });
+    </script>
+</body>
+          </html>
