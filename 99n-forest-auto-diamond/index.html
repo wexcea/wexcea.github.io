@@ -186,15 +186,46 @@
             line-height: 1.5;
         }
 
-        .popup-info {
-            font-family: 'Inter', 'Noto Sans Thai', 'Sarabun', sans-serif;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(239, 68, 68, 0.1);
+        .popup-button {
+            font-family: 'Space Grotesk', 'Inter', 'Noto Sans Thai', sans-serif;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b, #eab308);
+            color: #1f2937;
+            border: none;
+            padding: 20px 50px;
             border-radius: 10px;
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+            margin-bottom: 25px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.6);
+        }
+
+        .popup-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .popup-button:hover::before {
+            left: 100%;
         }
 
         .progress-container {
@@ -382,8 +413,8 @@
     <div class="popup-overlay" id="popupOverlay">
         <div class="popup-container">
             <h2 class="popup-title">Click Ad to Unlock</h2>
-            <p class="popup-subtitle">Click anywhere on this page, wait 5 seconds, then come back.</p>
-            <p class="popup-info">💡 Tip: Click on the page to trigger the ad popup</p>
+            <p class="popup-subtitle">Click and wait 5 seconds, then come back.</p>
+            <button class="popup-button" id="clickAdButton">Click here</button>
             <div class="progress-container" id="progressContainer">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
@@ -428,7 +459,6 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/26272949f21bd5
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js"></script>
-    <script type='text/javascript' src='//pl28077583.effectivegatecpm.com/35/eb/1e/35eb1e62a0275d9a68076fbb01fed932.js'></script>
 
     <script>
         function getYouTubeEmbedUrl(url) {
@@ -487,44 +517,36 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/26272949f21bd5
                 // Show popup after loading screen fades out
                 setTimeout(() => {
                     popupOverlay.classList.add('show');
-                    startAdDetection();
                 }, 500);
             }, 2000);
         }
 
-        let adClicked = false;
-
-        function startAdDetection() {
+        function handleAdClick() {
+            const clickAdButton = document.getElementById('clickAdButton');
             const progressContainer = document.getElementById('progressContainer');
             const progressBar = document.getElementById('progressBar');
             const unlockButton = document.getElementById('unlockButton');
             
-            // Detect any click on the page (for popunder)
-            document.addEventListener('click', function adClickHandler() {
-                if (!adClicked) {
-                    adClicked = true;
-                    
-                    // Show progress
-                    progressContainer.classList.add('show');
-                    
-                    // Start progress bar animation
-                    let progress = 0;
-                    const interval = setInterval(() => {
-                        progress += 2;
-                        progressBar.style.width = progress + '%';
-                        
-                        if (progress >= 100) {
-                            clearInterval(interval);
-                            // Enable unlock button
-                            unlockButton.disabled = false;
-                            unlockButton.classList.add('unlocked');
-                        }
-                    }, 100); // 5 seconds total
-                    
-                    // Remove listener after first click
-                    document.removeEventListener('click', adClickHandler);
+            // Open ad link in new tab
+            window.open('https://www.effectivegatecpm.com/f81njhsbf?key=f5161ed0b0765bfbc2606e6538e781ec', '_blank');
+            
+            // Hide click button and show progress
+            clickAdButton.style.display = 'none';
+            progressContainer.classList.add('show');
+            
+            // Start progress bar animation
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 2;
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    // Enable unlock button
+                    unlockButton.disabled = false;
+                    unlockButton.classList.add('unlocked');
                 }
-            });
+            }, 100); // 5 seconds total (50 intervals * 100ms)
         }
 
         function unlockPage() {
@@ -575,9 +597,11 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/26272949f21bd5
             hideLoading();
             
             const copyButton = document.getElementById('copyButton');
+            const clickAdButton = document.getElementById('clickAdButton');
             const unlockButton = document.getElementById('unlockButton');
             
             copyButton.addEventListener('click', copyScript);
+            clickAdButton.addEventListener('click', handleAdClick);
             unlockButton.addEventListener('click', unlockPage);
         });
     </script>
