@@ -131,7 +131,7 @@
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             z-index: 10000;
@@ -410,18 +410,6 @@
         <div class="loading-text">Loading...</div>
     </div>
 
-    <div class="popup-overlay" id="popupOverlay">
-        <div class="popup-container">
-            <h2 class="popup-title">Click Ad to Unlock</h2>
-            <p class="popup-subtitle">Click and wait 5 seconds, then come back.</p>
-            <button class="popup-button" id="clickAdButton">Click here</button>
-            <div class="progress-container" id="progressContainer">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <button class="unlock-button" id="unlockButton" disabled>Unlock Page</button>
-        </div>
-    </div>
-
     <div class="main-content">
         <div class="container">
             <h1 class="hero-title">
@@ -522,39 +510,11 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/26272949f21bd5
         }
 
         function handleAdClick() {
-            const clickAdButton = document.getElementById('clickAdButton');
-            const progressContainer = document.getElementById('progressContainer');
-            const progressBar = document.getElementById('progressBar');
-            const unlockButton = document.getElementById('unlockButton');
-            
-            // Open ad link in new tab
-            window.open('https://www.effectivegatecpm.com/y06dja79vs?key=7b7f00535bb1b0389a504f1de2cf4446', '_blank');
-            
-            // Hide click button and show progress
-            clickAdButton.style.display = 'none';
-            progressContainer.classList.add('show');
-            
-            // Start progress bar animation
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 2;
-                progressBar.style.width = progress + '%';
-                
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    // Enable unlock button
-                    unlockButton.disabled = false;
-                    unlockButton.classList.add('unlocked');
-                }
-            }, 100); // 5 seconds total (50 intervals * 100ms)
+            // Removed ad functionality
         }
 
         function unlockPage() {
-            const unlockButton = document.getElementById('unlockButton');
-            if (unlockButton.classList.contains('unlocked')) {
-                const popupOverlay = document.getElementById('popupOverlay');
-                popupOverlay.classList.remove('show');
-            }
+            // Removed unlock functionality
         }
 
         function copyScript() {
@@ -577,11 +537,6 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/26272949f21bd5
                 copySuccess.classList.add('show');
                 copyButton.textContent = '✅ Copied!';
                 copyButton.style.background = 'linear-gradient(45deg, #10b981, #059669)';
-                
-                // Wait 0.5 seconds then open ad link
-                setTimeout(() => {
-                    window.open('https://www.effectivegatecpm.com/y06dja79vs?key=7b7f00535bb1b0389a504f1de2cf4446', '_blank');
-                }, 500);
             } catch (err) {
                 console.error('Cannot copy:', err);
                 alert('Cannot copy automatically, please copy manually');
@@ -597,13 +552,8 @@ loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/26272949f21bd5
             hideLoading();
             
             const copyButton = document.getElementById('copyButton');
-            const clickAdButton = document.getElementById('clickAdButton');
-            const unlockButton = document.getElementById('unlockButton');
-            
             copyButton.addEventListener('click', copyScript);
-            clickAdButton.addEventListener('click', handleAdClick);
-            unlockButton.addEventListener('click', unlockPage);
         });
     </script>
 </body>
-</html>
+    </html>
