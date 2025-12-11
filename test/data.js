@@ -478,7 +478,8 @@ const scripts = {
         code: `loadstring(game:HttpGet('https://pastebin.com/raw/926hdcsB'))()`
       }
     ]
-  }, 
+  },
+
   "war_tycoon": {
     "name": "War Tycoon",
     "options": [
