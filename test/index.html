@@ -368,6 +368,8 @@
             // ลบช่องว่างและแปลงเป็นตัวพิมพ์เล็กทั้งหมด
             const searchKey = mapName.toLowerCase().replace(/\s+/g, '').trim();
             
+            if (searchKey.length === 0) return;
+            
             // ค้นหาแบบตรงทั้งหมด
             const exactMatch = Object.keys(scripts).find(key => 
                 key.replace(/\s+/g, '') === searchKey
@@ -388,33 +390,31 @@
                 return;
             }
             
-            // ถ้าพิมพ์ 3 ตัวขึ้นไป ค้นหาแบบบางส่วน
-            if (searchKey.length >= 3) {
-                const matchingMaps = Object.keys(scripts).filter(key => {
-                    const keyNoSpaces = key.replace(/\s+/g, '');
-                    return keyNoSpaces.includes(searchKey);
-                });
-                
-                if (matchingMaps.length === 1) {
-                    // เจอแมพเดียว แสดงตัวเลือกสคริปต์
-                    const mapData = scripts[matchingMaps[0]];
-                    if (mapData.options.length === 1) {
-                        displayScript(mapData.name, mapData.options[0]);
-                        currentState = 'idle';
-                    } else {
-                        displayOptions(mapData);
-                        currentState = 'waiting_for_selection';
-                        currentMap = matchingMaps[0];
-                        currentOptions = mapData.options;
-                    }
-                    return;
-                } else if (matchingMaps.length > 1) {
-                    // เจอหลายแมพ ให้เลือก
-                    displayMapOptions(matchingMaps);
-                    currentState = 'waiting_for_map_selection';
-                    currentOptions = matchingMaps;
-                    return;
+            // ค้นหาแมพที่คล้ายกัน (partial match)
+            const matchingMaps = Object.keys(scripts).filter(key => {
+                const keyNoSpaces = key.replace(/\s+/g, '');
+                return keyNoSpaces.includes(searchKey) || searchKey.includes(keyNoSpaces);
+            });
+            
+            if (matchingMaps.length === 1) {
+                // เจอแมพเดียว แสดงตัวเลือกสคริปต์
+                const mapData = scripts[matchingMaps[0]];
+                if (mapData.options.length === 1) {
+                    displayScript(mapData.name, mapData.options[0]);
+                    currentState = 'idle';
+                } else {
+                    displayOptions(mapData);
+                    currentState = 'waiting_for_selection';
+                    currentMap = matchingMaps[0];
+                    currentOptions = mapData.options;
                 }
+                return;
+            } else if (matchingMaps.length > 1) {
+                // เจอหลายแมพ ให้เลือก
+                displayMapOptions(matchingMaps);
+                currentState = 'waiting_for_map_selection';
+                currentOptions = matchingMaps;
+                return;
             }
             
             // ไม่เจอเลย
@@ -574,4 +574,4 @@
         });
     </script>
 </body>
-    </html>
+                                                                     </html>
