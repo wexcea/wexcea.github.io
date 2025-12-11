@@ -698,7 +698,7 @@ const scripts = {
       {
         "title": "Default",
         "code": "loadstring(game:HttpGet('https://raw.githubusercontent.com/Nekojom/All-Script/refs/heads/main/NekoJomall'))()"
-      }
-    ]
+                }
+      ]
   }
-  }
+};
