@@ -333,10 +333,53 @@
     </div>
 
     <script src="data.js"></script>
+    <script src="data2.js"></script>
+    <script src="bestgame.js"></script>
     <script>
         let currentState = 'idle';
         let currentMap = null;
         let currentOptions = null;
+        
+        // รวมข้อมูลจากทุกไฟล์
+        let allScripts = {};
+        
+        // ฟังก์ชันรวมข้อมูลที่มี key ซ้ำกัน
+        function mergeScripts(target, source) {
+            for (let key in source) {
+                if (target[key]) {
+                    // ถ้ามี key ซ้ำ ให้รวม options เข้าด้วยกัน
+                    target[key].options = [...target[key].options, ...source[key].options];
+                } else {
+                    // ถ้าไม่มี key นี้ ให้เพิ่มเข้าไปใหม่
+                    target[key] = source[key];
+                }
+            }
+            return target;
+        }
+        
+        // รอให้ไฟล์ทั้งหมดโหลดเสร็จ
+        function initializeScripts() {
+            // รวมข้อมูลจาก data.js
+            if (typeof scripts !== 'undefined') {
+                allScripts = mergeScripts(allScripts, scripts);
+            }
+            
+            // รวมข้อมูลจาก data2.js
+            if (typeof scripts2 !== 'undefined') {
+                allScripts = mergeScripts(allScripts, scripts2);
+            }
+            
+            // รวมข้อมูลจาก bestgame.js
+            if (typeof bestgame !== 'undefined') {
+                allScripts = mergeScripts(allScripts, bestgame);
+            }
+            
+            console.log('Total scripts loaded:', Object.keys(allScripts).length);
+            // แสดงจำนวน options ในแต่ละแมพ
+            for (let key in allScripts) {
+                console.log(`${allScripts[key].name}: ${allScripts[key].options.length} scripts`);
+            }
+        }
 
         function sendMessage() {
             const input = document.getElementById('userInput');
@@ -371,12 +414,12 @@
             if (searchKey.length === 0) return;
             
             // ค้นหาแบบตรงทั้งหมด
-            const exactMatch = Object.keys(scripts).find(key => 
+            const exactMatch = Object.keys(allScripts).find(key => 
                 key.replace(/\s+/g, '') === searchKey
             );
             
             if (exactMatch) {
-                const mapData = scripts[exactMatch];
+                const mapData = allScripts[exactMatch];
                 
                 if (mapData.options.length === 1) {
                     displayScript(mapData.name, mapData.options[0]);
@@ -391,14 +434,14 @@
             }
             
             // ค้นหาแมพที่คล้ายกัน (partial match)
-            const matchingMaps = Object.keys(scripts).filter(key => {
+            const matchingMaps = Object.keys(allScripts).filter(key => {
                 const keyNoSpaces = key.replace(/\s+/g, '');
                 return keyNoSpaces.includes(searchKey) || searchKey.includes(keyNoSpaces);
             });
             
             if (matchingMaps.length === 1) {
                 // เจอแมพเดียว แสดงตัวเลือกสคริปต์
-                const mapData = scripts[matchingMaps[0]];
+                const mapData = allScripts[matchingMaps[0]];
                 if (mapData.options.length === 1) {
                     displayScript(mapData.name, mapData.options[0]);
                     currentState = 'idle';
@@ -428,7 +471,7 @@
             optionsHtml += `<strong>Found multiple maps:</strong><br><br>`;
             
             mapKeys.forEach((key, index) => {
-                const mapName = scripts[key].name;
+                const mapName = allScripts[key].name;
                 optionsHtml += `<div class="option-item">${index + 1}. ${mapName}</div>`;
             });
             
@@ -480,7 +523,7 @@
             }
 
             const selectedMapKey = currentOptions[selection - 1];
-            const mapData = scripts[selectedMapKey];
+            const mapData = allScripts[selectedMapKey];
             
             if (mapData.options.length === 1) {
                 displayScript(mapData.name, mapData.options[0]);
@@ -570,6 +613,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            initializeScripts();
             document.getElementById('userInput').focus();
         });
     </script>
