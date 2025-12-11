@@ -1,577 +1,482 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Script Helper</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+// data.js
+const scripts = {
+  "blockspin": {
+    name: "BlockSpin",
+    options: [
+      {
+        title: "Hermanos Hub — Farm",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/hermanos-dev/hermanos-hub/refs/heads/main/BlockSpin/blockspin-farm.lua'))()`
+      },
+      {
+        title: "Hermanos Hub — PvP",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/hermanos-dev/hermanos-hub/refs/heads/main/BlockSpin/blockspin-pvp.lua'))()`
+      }
+    ]
+  },
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  "attack_on_titan_revolution": {
+    name: "Attack on Titan Revolution",
+    options: [
+      {
+        title: "Bomba — Default",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/LunarZR/bomba/refs/heads/main/AOTR1'))()`
+      }
+    ]
+  },
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0f172a;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
+  "world_zero": {
+    name: "World Zero",
+    options: [
+      {
+        title: "World Zero — Default",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/justdoingrandomstuff/World-Zero/refs/heads/main/autofarm'))()`
+      }
+    ]
+  },
 
-        .container { 
-            max-width: 1400px; 
-            margin: 0 auto; 
-            padding: 0 20px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+  "jailbreak": {
+    name: "JailBreak",
+    options: [
+      {
+        title: "ProjectAuto — Default",
+        code: `loadstring(game:HttpGet('http://scripts.projectauto.xyz/AutoRobV6'))()`
+      }
+    ]
+  },
 
-        .header {
-            padding: 30px 0 20px;
-            text-align: center;
-        }
+  "blade_ball": {
+    name: "Blade ball",
+    options: [
+      {
+        title: "Argon Hub X — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/AgentX771/ArgonHubX/main/Loader.lua'))()`
+      },
+      {
+        title: "NatHub — Main Script",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/ArdyBotzz/NatHub/refs/heads/master/NatHub.lua'))();`
+      }
+    ]
+  },
 
-        .hero-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, #64748b, #94a3b8, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-            letter-spacing: -1px;
-        }
+  "arise_crossover": {
+    name: "Arise Crossover",
+    options: [
+      {
+        title: "Speed Hub X — Main Script",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua', true))();`
+      },
+      {
+        title: "Goomba Hub — Arise Crossover",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/JustLevel/goombahub/main/AriseCrossover.lua'))()`
+      },
+      {
+        title: "Venuz Hub — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/x2Kotaro/Venuz-hub/main/Loader.lua'))()`
+      }
+    ]
+  },
 
-        .subtitle {
-            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-            color: #94a3b8;
-            font-weight: 400;
-        }
+  "be_fish": {
+    name: "Be Fish",
+    options: [
+      {
+        title: "Swee Hub — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/AkinaRulezx/Swee_Hub/main/LoadSWE', true))()`
+      },
+      {
+        title: "BeaFish — Main Script",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/AkinaRulezx/beafish/main/main%20script', true))()`
+      }
+    ]
+  },
 
-        .main-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-            padding-bottom: 20px;
-        }
+  "driving_empire": {
+    name: "Driving Empire",
+    options: [
+      {
+        title: "New Brand — AutoFarmer",
+        code: `loadstring(game:HttpGet('https://rawscripts.net/raw/NEW-BRAND-Driving-Empire-Car-Racing-AutoFarmer-and-AutoRacer-23697'))()`
+      },
+      {
+        title: "Deposible Hub — Main Script",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/deposible/deposible.github.io/refs/heads/main/Driving%20Empire.lua'))()`
+      }
+    ]
+  },
 
-        .chat-area {
-            flex: 1;
-            background: #1e293b;
-            border-radius: 16px;
-            padding: 30px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            border: 1px solid #334155;
-            min-height: 0;
-        }
+  "die_of_death": {
+    name: "Die of Death",
+    options: [
+      {
+        title: "Red Hub — Default",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/thuker-evader/Die-of-death/refs/heads/main/Red%20hub'))()`
+      }
+    ]
+  },
 
-        .message {
-            margin-bottom: 20px;
-            animation: fadeIn 0.3s ease;
-        }
+  "king_legacy": {
+    name: "King Legacy",
+    options: [
+      {
+        title: "Ls Zee Hub — Default",
+        code: `loadstring(game:HttpGet('https://zuwz.me/Ls-Zee-Hub-KL'))()`
+      }
+    ]
+  },
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  "new_race_car_dealership_tycoon": {
+    name: "NEW RACE! Car Dealership Tycoon",
+    options: [
+      {
+        title: "Default Script — Loader",
+        code: `loadstring(game:HttpGet('https://norepinefrina.com'))()`
+      }
+    ]
+  },
 
-        .message.user { text-align: right; }
+  "restaurant_tycoon_3": {
+    name: "Restaurant Tycoon 3",
+    options: [
+      {
+        title: "Chiyo Hub — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua'))();`
+      }
+    ]
+  },
 
-        .message-bubble {
-            display: inline-block;
-            padding: 12px 18px;
-            border-radius: 16px;
-            max-width: 70%;
-            word-wrap: break-word;
-            font-size: 15px;
-            line-height: 1.5;
-        }
+  "volleyball_legends": {
+    name: "Volleyball Legends",
+    options: [
+      {
+        title: "SterlingNew — Default",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/Zayn31214/name/refs/heads/main/SterlingNew'))()`
+      }
+    ]
+  },
 
-        .user .message-bubble {
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
+  "racket_rivals": {
+    name: "Racket Rivals",
+    options: [
+      {
+        title: "ScriptsRBX — Main Script",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptsRBXdotCom/scripts/refs/heads/main/racketrivals'))()`
+      }
+    ]
+  },
 
-        .bot .message-bubble {
-            background: #334155;
-            color: #e2e8f0;
-            border-bottom-left-radius: 4px;
-        }
+  "race_clicker": {
+    name: "Race Clicker",
+    options: [
+      {
+        title: "Gumanba — Default",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/gumanba/Scripts/main/RaceClicker'))()`
+      }
+    ]
+  },
 
-        .message-label {
-            font-size: 11px;
-            color: #64748b;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
+  "one_piece_mythical": {
+    name: "One Piece: Mythical",
+    options: [
+      {
+        title: "AFK Chest — Auto Chest",
+        code: `_G.hopServer=true; loadstring(game:HttpGet('https://raw.githubusercontent.com/gunchaznon-ops/AutoChest/refs/heads/main/Auto.lua'))()`
+      },
+      {
+        title: "Full Functions Hub — Loader",
+        code: `loadstring(game:HttpGet('https://api.luarmor.net/files/v3/loaders/8b80da8a731e75bc386e7f01c1151a57.lua'))()`
+      }
+    ]
+  },
 
-        .script-code {
-            background: #0f172a;
-            color: #94a3b8;
-            padding: 16px;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            margin-top: 10px;
-            position: relative;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-            border: 1px solid #334155;
-        }
+  "meme_sea": {
+    name: "Meme Sea",
+    options: [
+      {
+        title: "TLREDZ — Main Script",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/tlredz/Scripts/refs/heads/main/main.luau'))()`
+      }
+    ]
+  },
 
-        .copy-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
+  "garden_tower_defense": {
+    name: "Garden Tower Defense",
+    options: [
+      {
+        title: "Pastefy — Loader",
+        code: `loadstring(game:HttpGet('https://pastefy.app/ULaWpxKm/raw'))()`
+      }
+    ]
+  },
 
-        .copy-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.4);
-        }
+  "your_goblin_mine": {
+    name: "Your Goblin Mine",
+    options: [
+      {
+        title: "Pastebin — Default",
+        code: `PlaceIds=[127590941940388,136409236554789]; loadstring(game:HttpGet('https://pastebin.com/raw/YX9LTtab'))()`
+      }
+    ]
+  },
 
-        .copy-btn.copied {
-            background: linear-gradient(135deg, #059669, #10b981);
-        }
+  "unnamed_shooter": {
+    name: "Unnamed Shooter",
+    options: [
+      {
+        title: "KaliHub — Loader",
+        code: `loadstring(game:HttpGet('https://kalihub.xyz/loader.lua'))()`
+      }
+    ]
+  },
 
-        .options-list {
-            margin-top: 10px;
-            padding: 16px;
-            background: #0f172a;
-            border-radius: 10px;
-            border: 1px solid #334155;
-        }
+  "anime_crusaders": {
+    name: "Anime Crusaders",
+    options: [
+      {
+        title: "Pastefy — Default",
+        code: `loadstring(game:HttpGet('https://pastefy.app/ULaWpxKm/raw'))()`
+      }
+    ]
+  },
 
-        .options-list .option-item {
-            padding: 6px 0;
-            font-weight: 500;
-            color: #e2e8f0;
-            font-size: 14px;
-        }
+  "anime_evolution": {
+    name: "Anime Evolution",
+    options: [
+      {
+        title: "IQ Hub — Main Script",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/checkurasshole/Script/refs/heads/main/IQ'))()`
+      },
+      {
+        title: "AE Hub — Readme Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/rystery/aE/refs/heads/main/README.md'))()`
+      }
+    ]
+  },
 
-        .input-area {
-            display: flex;
-            gap: 12px;
-        }
+  "anime_eternal": {
+    name: "ANIME ETERNAL",
+    options: [
+      {
+        title: "Gehlee Hub — Script A",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/OhhMyGehlee/sh/refs/heads/main/a'))()`
+      },
+      {
+        title: "Gehlee Hub — Script ER",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/OhhMyGehlee/et/refs/heads/main/er'))()`
+      }
+    ]
+  },
 
-        #userInput {
-            flex: 1;
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 14px 20px;
-            font-family: 'Inter', sans-serif;
-            font-size: 15px;
-            color: white;
-            outline: none;
-            transition: all 0.2s;
-        }
+  "ninja_legends": {
+    name: "Ninja Legends",
+    options: [
+      {
+        title: "Proxima Hub — Main Script",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/TrixAde/Proxima-Hub/main/Main.lua', true))()`
+      }
+    ]
+  },
 
-        #userInput::placeholder {
-            color: #64748b;
-        }
+  "muscle_legends": {
+    name: "Muscle Legends",
+    options: [
+      {
+        title: "Tokattk — Default",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/2581235867/21/refs/heads/main/By%20Tokattk'))()`
+      }
+    ]
+  },
 
-        #userInput:focus {
-            border-color: #64748b;
-            background: #2d3a4f;
-        }
+  "be_a_beggar": {
+    name: "Be a Beggar!",
+    options: [
+      {
+        title: "Hyl9 — Script",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/danangori/Be-a-Beggar/refs/heads/main/2025-Hyl9'))()`
+      }
+    ]
+  },
 
-        #sendBtn {
-            padding: 14px 32px;
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Space Grotesk', sans-serif;
-        }
+  "a_universal_time": {
+    name: "A Universal Time",
+    options: [
+      {
+        title: "Akatsuki Hub — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/AkatsukiHub1/A-Universal-Time/refs/heads/main/README.md'))()`
+      }
+    ]
+  },
 
-        #sendBtn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(100, 116, 139, 0.4);
-        }
+  "[upd]_bike_of_hell": {
+    name: "[UPD] Bike of Hell",
+    options: [
+      {
+        title: "HSKDEV — Default",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/HSKDEVfr/BikeofHell/refs/heads/main/bikeofhell'))()`
+      }
+    ]
+  },
 
-        #sendBtn:active {
-            transform: translateY(0);
-        }
+  "a_dusty_trip_car_quest": {
+    name: "a dusty trip [CAR QUEST]",
+    options: [
+      {
+        title: "DustyTrip — Beta Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/AbdouGG/dustytripv1/main/beta'))()`
+      }
+    ]
+  },
 
-        .welcome-message {
-            text-align: center;
-            padding: 60px 20px;
-            color: #94a3b8;
-        }
+  "eat_the_world": {
+    name: "Eat the World",
+    options: [
+      {
+        title: "Luminary Hub — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/wrestonbest/Luminary-2025/refs/heads/main/Scripts/Main%20Loader.lua'))()`
+      }
+    ]
+  },
 
-        .welcome-message h2 {
-            color: #cbd5e1;
-            margin-bottom: 12px;
-            font-size: 22px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-        }
+  "[gtr]_sakon_town_boxing": {
+    name: "[GTR] Sakon Town Boxing",
+    options: [
+      {
+        title: "Winnable Hub — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/Winnable-Hub/Sakon/refs/heads/main/Loading.Lua'))()`
+      }
+    ]
+  },
 
-        .welcome-message p {
-            margin: 8px 0;
-            line-height: 1.6;
-            font-size: 15px;
-        }
+  "counter_blox": {
+    name: "Counter Blox",
+    options: [
+      {
+        title: "EgorWare — Aurora",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/egorware/scripts/refs/heads/main/aurora_but_eng.lua'))()`
+      }
+    ]
+  },
 
-        .example-maps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 24px;
-        }
+  "[don]_blue_lock_rivals": {
+    name: "[DON] Blue Lock: Rivals",
+    options: [
+      {
+        title: "Reo Script — No CD",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/BexruzScripts/Blue-lock-no-cd-reo-get-any-style-script.-WORKS-WITH-WORLD-CLASSES-/refs/heads/main/script.lua'))()`
+      },
+      {
+        title: "Obfuscate Kid — Script 2",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/gonnered/obfuscate-kid/refs/heads/main/obfuscated_script-1758340500011.lua.txt'))()`
+      }
+    ]
+  },
 
-        .map-tag {
-            background: #334155;
-            border: 1px solid #475569;
-            color: #cbd5e1;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 14px;
-            font-weight: 600;
-            font-family: 'Space Grotesk', sans-serif;
-        }
+  "murder_mystery_2": {
+    name: "Murder Mystery 2",
+    options: [
+      {
+        title: "Vertex Hub — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/vertex-peak/vertex/refs/heads/main/loadstring'))()`
+      }
+    ]
+  },
 
-        .map-tag:hover {
-            background: linear-gradient(135deg, #475569, #64748b);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
-        }
+  "7_days_to_live": {
+    name: "7 DAYS TO LIVE",
+    options: [
+      {
+        title: "Luarmor — Loader",
+        code: `loadstring(game:HttpGet('https://api.luarmor.net/files/v3/loaders/255ac567ced3dcb9e69aa7e44c423f19.lua'))()`
+      }
+    ]
+  },
 
-        .chat-area::-webkit-scrollbar { width: 8px; }
-        .chat-area::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
-        .chat-area::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
-        .chat-area::-webkit-scrollbar-thumb:hover { background: #64748b; }
+  "[odm_gear]_snk_rumbling": {
+    name: "[ODM GEAR] SNK: Rumbling",
+    options: [
+      {
+        title: "Agreed69 — Universal Aimbot",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/agreed69-scripts/open-src-scripts/refs/heads/main/Universal%20Aimbot.lua',true))()`
+      }
+    ]
+  },
 
-        @media (max-width: 768px) {
-            .container { 
-                padding: 0 12px;
-                height: 100vh;
-            }
-            .header { padding: 20px 0 15px; }
-            .chat-area {
-                padding: 20px;
-                margin-bottom: 15px;
-            }
-            .message-bubble { 
-                max-width: 85%;
-                padding: 10px 14px;
-                font-size: 14px;
-            }
-            #sendBtn { 
-                padding: 14px 24px;
-                font-size: 14px;
-            }
-            #userInput {
-                padding: 12px 16px;
-                font-size: 14px;
-            }
-            .map-tag {
-                padding: 8px 16px;
-                font-size: 13px;
-            }
-            .welcome-message {
-                padding: 40px 15px;
-            }
-            .welcome-message h2 {
-                font-size: 20px;
-            }
-            .welcome-message p {
-                font-size: 14px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1 class="hero-title">🎮 Script Helper</h1>
-            <p class="subtitle">Search for scripts for your Roblox games</p>
-        </div>
+  "arsenal": {
+    name: "Arsenal",
+    options: [
+      {
+        title: "Unbound Hub — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/samerop/unbound-hub/main/unbound-hub.lua'))()`
+      }
+    ]
+  },
 
-        <div class="main-wrapper">
-            <div class="chat-area" id="chatArea">
-                <div class="welcome-message">
-                    <h2>Welcome!</h2>
-                    <p>Type the name of the Roblox map you want to find scripts for</p>
-                    <p style="font-size: 13px; color: #64748b;">Examples: BlockSpin, Blox Fruits, Pet Simulator</p>
-                    <div class="example-maps">
-                        <div class="map-tag" onclick="searchMap('blockspin')">BlockSpin</div>
-                        <div class="map-tag" onclick="searchMap('bloxfruits')">Blox Fruits</div>
-                        <div class="map-tag" onclick="searchMap('petsimulator')">Pet Simulator</div>
-                    </div>
-                </div>
-            </div>
+  "cut_trees_world_3": {
+    name: "Cut Trees [WORLD 3]",
+    options: [
+      {
+        title: "Konglomerate — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/Konglomerate/Script/Main/Loader'))()`
+      }
+    ]
+  },
 
-            <div class="input-area">
-                <input type="text" id="userInput" placeholder="Type map name or select option..." onkeypress="handleKeyPress(event)">
-                <button id="sendBtn" onclick="sendMessage()">Send</button>
-            </div>
-        </div>
-    </div>
+  "combat_warriors": {
+    name: "Combat Warriors",
+    options: [
+      {
+        title: "Luarmor — Loader",
+        code: `loadstring(game:HttpGet('https://api.luarmor.net/files/v3/loaders/e115b107e044a8cfc35b87ce573d558f.lua'))()`
+      }
+    ]
+  },
 
-    <script src="data.js"></script>
-    <script>
-        let currentState = 'idle';
-        let currentMap = null;
-        let currentOptions = null;
+  "[2x]_dragon_soul_anime_mmo": {
+    name: "[2x] Dragon Soul | Anime MMO",
+    options: [
+      {
+        title: "Imp Hub — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/alan11ago/Hub/refs/heads/main/ImpHub.lua'))()`
+      }
+    ]
+  },
 
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const message = input.value.trim();
-            
-            if (message === '') return;
+  "build_ur_base": {
+    name: "Build Ur Base",
+    options: [
+      {
+        title: "Pastebin — Loader",
+        code: `loadstring(game:HttpGet('https://pastebin.com/raw/BBK7PLsJ', true))()`
+      }
+    ]
+  },
 
-            addMessage(message, 'user');
-            
-            setTimeout(() => {
-                processMessage(message);
-            }, 300);
+  "build_a_cart": {
+    name: "Build A Cart",
+    options: [
+      {
+        title: "Gumanba — Loader",
+        code: `loadstring(game:HttpGet('https://raw.githubusercontent.com/gumanba/Scripts/m'))()`
+      }
+    ]
+  },
 
-            input.value = '';
-            input.focus();
-        }
+  "car_battles": {
+    name: "CAR BATTLES",
+    options: [
+      {
+        title: "User75335836 — Script",
+        code: `loadstring(game:HttpGet('https://gist.githubusercontent.com/user75335836/23d735b04864c6505e2eb68513f1d947/raw/116600375b3a77b7412c68a3e26db59b653e4bf1/gistfile1.txt'))()`
+      }
+    ]
+  },
 
-        function processMessage(message) {
-            if (currentState === 'idle') {
-                searchMapByName(message);
-            } else if (currentState === 'waiting_for_map_selection') {
-                handleMapSelection(message);
-            } else if (currentState === 'waiting_for_selection') {
-                handleSelection(message);
-            }
-        }
-
-        function searchMapByName(mapName) {
-            // ลบช่องว่างและแปลงเป็นตัวพิมพ์เล็กทั้งหมด
-            const searchKey = mapName.toLowerCase().replace(/\s+/g, '').trim();
-            
-            if (searchKey.length === 0) return;
-            
-            // ค้นหาแบบตรงทั้งหมด
-            const exactMatch = Object.keys(scripts).find(key => 
-                key.replace(/\s+/g, '') === searchKey
-            );
-            
-            if (exactMatch) {
-                const mapData = scripts[exactMatch];
-                
-                if (mapData.options.length === 1) {
-                    displayScript(mapData.name, mapData.options[0]);
-                    currentState = 'idle';
-                } else {
-                    displayOptions(mapData);
-                    currentState = 'waiting_for_selection';
-                    currentMap = exactMatch;
-                    currentOptions = mapData.options;
-                }
-                return;
-            }
-            
-            // ค้นหาแมพที่คล้ายกัน (partial match)
-            const matchingMaps = Object.keys(scripts).filter(key => {
-                const keyNoSpaces = key.replace(/\s+/g, '');
-                return keyNoSpaces.includes(searchKey) || searchKey.includes(keyNoSpaces);
-            });
-            
-            if (matchingMaps.length === 1) {
-                // เจอแมพเดียว แสดงตัวเลือกสคริปต์
-                const mapData = scripts[matchingMaps[0]];
-                if (mapData.options.length === 1) {
-                    displayScript(mapData.name, mapData.options[0]);
-                    currentState = 'idle';
-                } else {
-                    displayOptions(mapData);
-                    currentState = 'waiting_for_selection';
-                    currentMap = matchingMaps[0];
-                    currentOptions = mapData.options;
-                }
-                return;
-            } else if (matchingMaps.length > 1) {
-                // เจอหลายแมพ ให้เลือก
-                displayMapOptions(matchingMaps);
-                currentState = 'waiting_for_map_selection';
-                currentOptions = matchingMaps;
-                return;
-            }
-            
-            // ไม่เจอเลย
-            const response = `❌ Sorry, no scripts found for "${mapName}"\n\nTry typing another map name or check your spelling.`;
-            addMessage(response, 'bot');
-            currentState = 'idle';
-        }
-        
-        function displayMapOptions(mapKeys) {
-            let optionsHtml = `<div class="options-list">`;
-            optionsHtml += `<strong>Found multiple maps:</strong><br><br>`;
-            
-            mapKeys.forEach((key, index) => {
-                const mapName = scripts[key].name;
-                optionsHtml += `<div class="option-item">${index + 1}. ${mapName}</div>`;
-            });
-            
-            optionsHtml += `<br><strong>Please select a number:</strong>`;
-            optionsHtml += `</div>`;
-            
-            addMessage(optionsHtml, 'bot', true);
-        }
-
-        function displayOptions(mapData) {
-            let optionsHtml = `<div class="options-list">`;
-            optionsHtml += `<strong>Found scripts for ${mapData.name}</strong><br><br>`;
-            
-            mapData.options.forEach((option, index) => {
-                optionsHtml += `<div class="option-item">${index + 1}. ${option.title}</div>`;
-            });
-            
-            optionsHtml += `<br><strong>Please select a number:</strong>`;
-            optionsHtml += `</div>`;
-            
-            addMessage(optionsHtml, 'bot', true);
-        }
-
-        function handleSelection(input) {
-            const selection = parseInt(input);
-            
-            if (isNaN(selection) || selection < 1 || selection > currentOptions.length) {
-                const response = `❌ Please select a number between 1-${currentOptions.length}`;
-                addMessage(response, 'bot');
-                return;
-            }
-
-            const selectedOption = currentOptions[selection - 1];
-            const mapName = scripts[currentMap].name;
-            displayScript(mapName, selectedOption);
-            
-            currentState = 'idle';
-            currentMap = null;
-            currentOptions = null;
-        }
-        
-        function handleMapSelection(input) {
-            const selection = parseInt(input);
-            
-            if (isNaN(selection) || selection < 1 || selection > currentOptions.length) {
-                const response = `❌ Please select a number between 1-${currentOptions.length}`;
-                addMessage(response, 'bot');
-                return;
-            }
-
-            const selectedMapKey = currentOptions[selection - 1];
-            const mapData = scripts[selectedMapKey];
-            
-            if (mapData.options.length === 1) {
-                displayScript(mapData.name, mapData.options[0]);
-                currentState = 'idle';
-                currentMap = null;
-                currentOptions = null;
-            } else {
-                displayOptions(mapData);
-                currentState = 'waiting_for_selection';
-                currentMap = selectedMapKey;
-                currentOptions = mapData.options;
-            }
-        }
-
-        function displayScript(mapName, scriptData) {
-            const scriptId = 'script-' + Date.now();
-            const response = `
-                ✅ You selected: <strong>${scriptData.title}</strong> (${mapName})
-                <div class="script-code" id="${scriptId}">
-                    <button class="copy-btn" onclick="copyScript('${scriptId}')">Copy</button>
-                    ${scriptData.code}
-                </div>
-            `;
-            addMessage(response, 'bot', true);
-        }
-
-        function copyScript(scriptId) {
-            const scriptElement = document.getElementById(scriptId);
-            const button = scriptElement.querySelector('.copy-btn');
-            const scriptText = scriptElement.textContent.replace('Copy', '').trim();
-            
-            navigator.clipboard.writeText(scriptText).then(() => {
-                button.textContent = '✓ Copied';
-                button.classList.add('copied');
-                
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                    button.classList.remove('copied');
-                }, 2000);
-            });
-        }
-
-        function addMessage(text, type, isHtml = false) {
-            const chatArea = document.getElementById('chatArea');
-            
-            const welcome = chatArea.querySelector('.welcome-message');
-            if (welcome) {
-                welcome.remove();
-            }
-
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type}`;
-            
-            const label = type === 'user' ? 'You' : 'System';
-            
-            if (isHtml) {
-                messageDiv.innerHTML = `
-                    <div class="message-label">${label}</div>
-                    <div class="message-bubble">${text}</div>
-                `;
-            } else {
-                const bubble = document.createElement('div');
-                bubble.className = 'message-bubble';
-                bubble.textContent = text;
-                
-                const labelDiv = document.createElement('div');
-                labelDiv.className = 'message-label';
-                labelDiv.textContent = label;
-                
-                messageDiv.appendChild(labelDiv);
-                messageDiv.appendChild(bubble);
-            }
-            
-            chatArea.appendChild(messageDiv);
-            chatArea.scrollTop = chatArea.scrollHeight;
-        }
-
-        function searchMap(mapName) {
-            document.getElementById('userInput').value = mapName;
-            sendMessage();
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('userInput').focus();
-        });
-    </script>
-</body>
-</html>
+  "sharkbite_2": {
+    name: "SharkBite 2",
+    options: [
+      {
+        title: "Pastebin — Default",
+        code: `loadstring(game:HttpGet('https://pastebin.com/raw/926hdcsB'))()`
+      }
+    ]
+  }
+};
