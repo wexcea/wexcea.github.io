@@ -478,5 +478,226 @@ const scripts = {
         code: `loadstring(game:HttpGet('https://pastebin.com/raw/926hdcsB'))()`
       }
     ]
+  }, 
+  "war_tycoon": {
+    "name": "War Tycoon",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://pastebin.com/raw/eFzmXhRE\"))()"
+      }
+    ]
+  },
+  "murderers_vs_sheriffs_duels": {
+    "name": "Murderers VS Sheriffs DUELS",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Cazzanos/The-basement/main/Basement%20hub\", true))()"
+      }
+    ]
+  },
+  "pixel_blade": {
+    "name": "Pixel Blade",
+    "options": [
+      {
+        "title": "Chiyo",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/kaisenlmao/loader/refs/heads/main/chiyo.lua\"))();"
+      },
+      {
+        "title": "Luarmor",
+        "code": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/12dcc7533e76814388269888ef9ad402.lua\"))()"
+      }
+    ]
+  },
+  "etok3_bala_roghoul": {
+    "name": "[EtoK3 Bala] Ro-Ghoul [ALPHA]",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/PorryDepTrai/exploit/main/DashBoostSolora.lua\"))()"
+      }
+    ]
+  },
+  "taxi_boss": {
+    "name": "Taxi Boss",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Marco8642/science/main/Taxi%20Boss\", true))()"
+      }
+    ]
+  },
+  "military_tycoon": {
+    "name": "[☢️ SUB] Military Tycoon ®",
+    "options": [
+      {
+        "title": "Beecon Hub",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub\"))()"
+      }
+    ]
+  },
+  "climb_and_jump_tower": {
+    "name": "🧗Climb and Jump Tower[🪷World16-Taipei 101]",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/MajestySkie/list/refs/heads/main/games\"))()"
+      }
+    ]
+  },
+  "bee_swarm_simulator": {
+    "name": "Bee Swarm Simulator",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/d8824b23a4d9f2e0d62b4e69397d206b.lua\"))()"
+      }
+    ]
+  },
+  "anime_vanguards": {
+    "name": "[💢 8.5 💢] Anime Vanguards",
+    "options": [
+      {
+        "title": "Luarmor",
+        "code": "loadstring(game:HttpGet('https://api.luarmor.net/files/v3/loaders/2529a5f9dfddd5523ca4e22f21cceffa.lua'))()"
+      },
+      {
+        "title": "Bloxteam",
+        "code": "loadstring(game:HttpGet(\"https://ryk.bloxteam.com/loader.lua\"))()"
+      }
+    ]
+  },
+  "anime_rangers_x": {
+    "name": "[Update 8.0] Anime Rangers X",
+    "options": [
+      {
+        "title": "Default",
+        "code": "--[[\n    WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!\n]]\nif not game:IsLoaded() then\n    game.Loaded:Wait()\nend\n\nlocal player = game.Players.LocalPlayer\nif not player.Character or not player.Character:FindFirstChild(\"HumanoidRootPart\") then\n    player.CharacterAdded:Wait()\n    repeat task.wait() until player.Character and player.Character:FindFirstChild(\"HumanoidRootPart\")\nend\n\nlocal wait_time = 0\ntask.wait(wait_time)\nloadstring(game:HttpGet(\"https://raw.githubusercontent.com/YOies/KazounVN/refs/heads/main/ARX\"))()"
+      }
+    ]
+  },
+  "basketball_zero": {
+    "name": "Basketball: Zero",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://api.luarmor.net/files/v3/loaders/0abf22d9dc1307a6cf1a4a17955e312d.lua\"))()"
+      }
+    ]
+  },
+  "survive_on_a_raft": {
+    "name": "Survive on a Raft",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/gumanba/Scripts/main/SurviveonaRaft\"))()"
+      }
+    ]
+  },
+  "dont_wake_the_brainrots": {
+    "name": "[NEW] Don't Wake the Brainrots!",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/gumanba/Scripts/main/DontWaketheBrainrots\"))()"
+      }
+    ]
   }
-};
+}
+{
+  "sols_rng": {
+    "name": "Sol's RNG [Test Your Luck]",
+    "options": [
+      {
+        "title": "Beecon Hub",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/BaconBossScript/BeeconHub/main/BeeconHub\",true))()"
+      }
+    ]
+  },
+  "ultimate_battlegrounds": {
+    "name": "Ultimate Battlegrounds",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://eltonshub-loader.netlify.app/Loader.lua\"))()"
+      }
+    ]
+  },
+  "forsaken": {
+    "name": "[🎭] Forsaken",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/who-else123/my-scripts/refs/heads/main/Syncsaken/main.lua\"))()"
+      }
+    ]
+  },
+  "weak_legacy_2": {
+    "name": "[UPD 4.75🦋] Weak Legacy 2",
+    "options": [
+      {
+        "title": "Omgshit Loader",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua\"))()"
+      },
+      {
+        "title": "L4BIB HUB",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/L4BIBKAZI/L4BIB-HUB/refs/heads/main/Weak%20Legacy%202\"))()"
+      }
+    ]
+  },
+  "fight_in_a_school": {
+    "name": "Fight In A School",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://api.junkie-development.de/api/v1/luascripts/public/1ef0ccc810eeec07081bc4f28f499141b728266b04e6738faf25d28cd35116b8/download\"))()"
+      }
+    ]
+  },
+  "midnight_chasers": {
+    "name": "[QUESTS!]🚗Midnight Chasers: Highway Racing",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/HitAMassy/AnonymousHub/refs/heads/main/loader.lua\"))()"
+      }
+    ]
+  },
+  "dandys_world": {
+    "name": "🎃 Dandy's World [ALPHA]",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/BobJunior1/Sup/refs/heads/main/Bobhub\"))()"
+      }
+    ]
+  },
+  "legends_of_speed": {
+    "name": "Legends Of Speed ⚡",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/TrixAde/Proxima-Hub/main/Main.lua\"))()"
+      }
+    ]
+  },
+  "demonfall": {
+    "name": "[5.6] Demonfall",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet(('https://raw.githubusercontent.com/NOOBHUBX/DemonFall/main/NOOB%20HUB.Lua'),true))()"
+      }
+    ]
+  },
+  "prospecting": {
+    "name": "[🌟] Prospecting!",
+    "options": [
+      {
+        "title": "Default",
+        "code": "loadstring(game:HttpGet('https://raw.githubusercontent.com/Nekojom/All-Script/refs/heads/main/NekoJomall'))()"
+      }
+    ]
+  }
+  }
