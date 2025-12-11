@@ -365,11 +365,16 @@
         }
 
         function searchMapByName(mapName) {
-            const searchKey = mapName.toLowerCase().trim();
+            // ลบช่องว่างและแปลงเป็นตัวพิมพ์เล็กทั้งหมด
+            const searchKey = mapName.toLowerCase().replace(/\s+/g, '').trim();
             
             // ค้นหาแบบตรงทั้งหมด
-            if (scripts[searchKey]) {
-                const mapData = scripts[searchKey];
+            const exactMatch = Object.keys(scripts).find(key => 
+                key.replace(/\s+/g, '') === searchKey
+            );
+            
+            if (exactMatch) {
+                const mapData = scripts[exactMatch];
                 
                 if (mapData.options.length === 1) {
                     displayScript(mapData.name, mapData.options[0]);
@@ -377,7 +382,7 @@
                 } else {
                     displayOptions(mapData);
                     currentState = 'waiting_for_selection';
-                    currentMap = searchKey;
+                    currentMap = exactMatch;
                     currentOptions = mapData.options;
                 }
                 return;
@@ -385,9 +390,10 @@
             
             // ถ้าพิมพ์ 3 ตัวขึ้นไป ค้นหาแบบบางส่วน
             if (searchKey.length >= 3) {
-                const matchingMaps = Object.keys(scripts).filter(key => 
-                    key.includes(searchKey)
-                );
+                const matchingMaps = Object.keys(scripts).filter(key => {
+                    const keyNoSpaces = key.replace(/\s+/g, '');
+                    return keyNoSpaces.includes(searchKey);
+                });
                 
                 if (matchingMaps.length === 1) {
                     // เจอแมพเดียว แสดงตัวเลือกสคริปต์
