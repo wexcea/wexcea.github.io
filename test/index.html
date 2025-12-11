@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: #0f172a;
             color: #ffffff;
             overflow-x: hidden;
@@ -34,7 +33,7 @@
         }
 
         .hero-title {
-            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
             background: linear-gradient(135deg, #64748b, #94a3b8, #cbd5e1);
@@ -175,7 +174,7 @@
             border: 1px solid #334155;
             border-radius: 12px;
             padding: 14px 20px;
-            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 15px;
             color: white;
             outline: none;
@@ -201,7 +200,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         #sendBtn:hover {
@@ -223,7 +222,7 @@
             color: #cbd5e1;
             margin-bottom: 12px;
             font-size: 22px;
-            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 600;
         }
 
@@ -251,7 +250,7 @@
             transition: all 0.2s;
             font-size: 14px;
             font-weight: 600;
-            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
         .map-tag:hover {
@@ -309,15 +308,15 @@
     <div class="container">
         <div class="header">
             <h1 class="hero-title">🎮 Script Helper</h1>
-            <p class="subtitle">ค้นหาสคริปต์สำหรับเกม Roblox ของคุณ</p>
+            <p class="subtitle">Search for scripts for your Roblox games</p>
         </div>
 
         <div class="main-wrapper">
             <div class="chat-area" id="chatArea">
                 <div class="welcome-message">
-                    <h2>ยินดีต้อนรับ!</h2>
-                    <p>พิมพ์ชื่อแมพ Roblox ที่คุณต้องการค้นหาสคริปต์</p>
-                    <p style="font-size: 13px; color: #64748b;">ตัวอย่าง: BlockSpin, Blox Fruits, Pet Simulator</p>
+                    <h2>Welcome!</h2>
+                    <p>Type the name of the Roblox map you want to find scripts for</p>
+                    <p style="font-size: 13px; color: #64748b;">Examples: BlockSpin, Blox Fruits, Pet Simulator</p>
                     <div class="example-maps">
                         <div class="map-tag" onclick="searchMap('blockspin')">BlockSpin</div>
                         <div class="map-tag" onclick="searchMap('bloxfruits')">Blox Fruits</div>
@@ -327,8 +326,8 @@
             </div>
 
             <div class="input-area">
-                <input type="text" id="userInput" placeholder="พิมพ์ชื่อแมพหรือเลือกตัวเลือก..." onkeypress="handleKeyPress(event)">
-                <button id="sendBtn" onclick="sendMessage()">ส่ง</button>
+                <input type="text" id="userInput" placeholder="Type map name or select option..." onkeypress="handleKeyPress(event)">
+                <button id="sendBtn" onclick="sendMessage()">Send</button>
             </div>
         </div>
     </div>
@@ -358,6 +357,8 @@
         function processMessage(message) {
             if (currentState === 'idle') {
                 searchMapByName(message);
+            } else if (currentState === 'waiting_for_map_selection') {
+                handleMapSelection(message);
             } else if (currentState === 'waiting_for_selection') {
                 handleSelection(message);
             }
@@ -366,6 +367,7 @@
         function searchMapByName(mapName) {
             const searchKey = mapName.toLowerCase().trim();
             
+            // ค้นหาแบบตรงทั้งหมด
             if (scripts[searchKey]) {
                 const mapData = scripts[searchKey];
                 
@@ -378,22 +380,67 @@
                     currentMap = searchKey;
                     currentOptions = mapData.options;
                 }
-            } else {
-                const response = `❌ ขอโทษครับ ไม่พบสคริปต์สำหรับ "${mapName}"\n\nลองพิมพ์ชื่อแมพอื่น หรือตรวจสอบการสะกดให้ถูกต้องครับ`;
-                addMessage(response, 'bot');
-                currentState = 'idle';
+                return;
             }
+            
+            // ถ้าพิมพ์ 3 ตัวขึ้นไป ค้นหาแบบบางส่วน
+            if (searchKey.length >= 3) {
+                const matchingMaps = Object.keys(scripts).filter(key => 
+                    key.includes(searchKey)
+                );
+                
+                if (matchingMaps.length === 1) {
+                    // เจอแมพเดียว แสดงตัวเลือกสคริปต์
+                    const mapData = scripts[matchingMaps[0]];
+                    if (mapData.options.length === 1) {
+                        displayScript(mapData.name, mapData.options[0]);
+                        currentState = 'idle';
+                    } else {
+                        displayOptions(mapData);
+                        currentState = 'waiting_for_selection';
+                        currentMap = matchingMaps[0];
+                        currentOptions = mapData.options;
+                    }
+                    return;
+                } else if (matchingMaps.length > 1) {
+                    // เจอหลายแมพ ให้เลือก
+                    displayMapOptions(matchingMaps);
+                    currentState = 'waiting_for_map_selection';
+                    currentOptions = matchingMaps;
+                    return;
+                }
+            }
+            
+            // ไม่เจอเลย
+            const response = `❌ Sorry, no scripts found for "${mapName}"\n\nTry typing another map name or check your spelling.`;
+            addMessage(response, 'bot');
+            currentState = 'idle';
+        }
+        
+        function displayMapOptions(mapKeys) {
+            let optionsHtml = `<div class="options-list">`;
+            optionsHtml += `<strong>Found multiple maps:</strong><br><br>`;
+            
+            mapKeys.forEach((key, index) => {
+                const mapName = scripts[key].name;
+                optionsHtml += `<div class="option-item">${index + 1}. ${mapName}</div>`;
+            });
+            
+            optionsHtml += `<br><strong>Please select a number:</strong>`;
+            optionsHtml += `</div>`;
+            
+            addMessage(optionsHtml, 'bot', true);
         }
 
         function displayOptions(mapData) {
             let optionsHtml = `<div class="options-list">`;
-            optionsHtml += `<strong>เจอสคริปต์ของ ${mapData.name}</strong><br><br>`;
+            optionsHtml += `<strong>Found scripts for ${mapData.name}</strong><br><br>`;
             
             mapData.options.forEach((option, index) => {
                 optionsHtml += `<div class="option-item">${index + 1}. ${option.title}</div>`;
             });
             
-            optionsHtml += `<br><strong>กรุณาเลือกหมายเลขที่ต้องการ:</strong>`;
+            optionsHtml += `<br><strong>Please select a number:</strong>`;
             optionsHtml += `</div>`;
             
             addMessage(optionsHtml, 'bot', true);
@@ -403,7 +450,7 @@
             const selection = parseInt(input);
             
             if (isNaN(selection) || selection < 1 || selection > currentOptions.length) {
-                const response = `❌ กรุณาเลือกหมายเลข 1-${currentOptions.length} เท่านั้นครับ`;
+                const response = `❌ Please select a number between 1-${currentOptions.length}`;
                 addMessage(response, 'bot');
                 return;
             }
@@ -416,13 +463,38 @@
             currentMap = null;
             currentOptions = null;
         }
+        
+        function handleMapSelection(input) {
+            const selection = parseInt(input);
+            
+            if (isNaN(selection) || selection < 1 || selection > currentOptions.length) {
+                const response = `❌ Please select a number between 1-${currentOptions.length}`;
+                addMessage(response, 'bot');
+                return;
+            }
+
+            const selectedMapKey = currentOptions[selection - 1];
+            const mapData = scripts[selectedMapKey];
+            
+            if (mapData.options.length === 1) {
+                displayScript(mapData.name, mapData.options[0]);
+                currentState = 'idle';
+                currentMap = null;
+                currentOptions = null;
+            } else {
+                displayOptions(mapData);
+                currentState = 'waiting_for_selection';
+                currentMap = selectedMapKey;
+                currentOptions = mapData.options;
+            }
+        }
 
         function displayScript(mapName, scriptData) {
             const scriptId = 'script-' + Date.now();
             const response = `
-                ✅ คุณเลือก: <strong>${scriptData.title}</strong> (${mapName})
+                ✅ You selected: <strong>${scriptData.title}</strong> (${mapName})
                 <div class="script-code" id="${scriptId}">
-                    <button class="copy-btn" onclick="copyScript('${scriptId}')">คัดลอก</button>
+                    <button class="copy-btn" onclick="copyScript('${scriptId}')">Copy</button>
                     ${scriptData.code}
                 </div>
             `;
@@ -432,14 +504,14 @@
         function copyScript(scriptId) {
             const scriptElement = document.getElementById(scriptId);
             const button = scriptElement.querySelector('.copy-btn');
-            const scriptText = scriptElement.textContent.replace('คัดลอก', '').trim();
+            const scriptText = scriptElement.textContent.replace('Copy', '').trim();
             
             navigator.clipboard.writeText(scriptText).then(() => {
-                button.textContent = '✓ คัดลอกแล้ว';
+                button.textContent = '✓ Copied';
                 button.classList.add('copied');
                 
                 setTimeout(() => {
-                    button.textContent = 'คัดลอก';
+                    button.textContent = 'Copy';
                     button.classList.remove('copied');
                 }, 2000);
             });
@@ -456,7 +528,7 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}`;
             
-            const label = type === 'user' ? 'คุณ' : 'ระบบ';
+            const label = type === 'user' ? 'You' : 'System';
             
             if (isHtml) {
                 messageDiv.innerHTML = `
@@ -496,4 +568,4 @@
         });
     </script>
 </body>
-  </html>
+    </html>
