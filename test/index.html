@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Script Helper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            background: #0f172a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 0 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 30px 0 20px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #64748b, #94a3b8, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            padding-bottom: 20px;
+        }
+
+        .chat-area {
+            flex: 1;
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 30px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            border: 1px solid #334155;
+            min-height: 0;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user { text-align: right; }
+
+        .message-bubble {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 16px;
+            max-width: 70%;
+            word-wrap: break-word;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .user .message-bubble {
+            background: linear-gradient(135deg, #475569, #64748b);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .bot .message-bubble {
+            background: #334155;
+            color: #e2e8f0;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-label {
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .script-code {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 16px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-top: 10px;
+            position: relative;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            border: 1px solid #334155;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #475569, #64748b);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.4);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #059669, #10b981);
+        }
+
+        .options-list {
+            margin-top: 10px;
+            padding: 16px;
+            background: #0f172a;
+            border-radius: 10px;
+            border: 1px solid #334155;
+        }
+
+        .options-list .option-item {
+            padding: 6px 0;
+            font-weight: 500;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 12px;
+        }
+
+        #userInput {
+            flex: 1;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            font-size: 15px;
+            color: white;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        #userInput::placeholder {
+            color: #64748b;
+        }
+
+        #userInput:focus {
+            border-color: #64748b;
+            background: #2d3a4f;
+        }
+
+        #sendBtn {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #475569, #64748b);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+        }
+
+        #sendBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(100, 116, 139, 0.4);
+        }
+
+        #sendBtn:active {
+            transform: translateY(0);
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+        }
+
+        .welcome-message h2 {
+            color: #cbd5e1;
+            margin-bottom: 12px;
+            font-size: 22px;
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-weight: 600;
+        }
+
+        .welcome-message p {
+            margin: 8px 0;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .example-maps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .map-tag {
+            background: #334155;
+            border: 1px solid #475569;
+            color: #cbd5e1;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+        }
+
+        .map-tag:hover {
+            background: linear-gradient(135deg, #475569, #64748b);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+        }
+
+        .chat-area::-webkit-scrollbar { width: 8px; }
+        .chat-area::-webkit-scrollbar-track { background: #0f172a; border-radius: 10px; }
+        .chat-area::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; }
+        .chat-area::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+        @media (max-width: 768px) {
+            .container { 
+                padding: 0 12px;
+                height: 100vh;
+            }
+            .header { padding: 20px 0 15px; }
+            .chat-area {
+                padding: 20px;
+                margin-bottom: 15px;
+            }
+            .message-bubble { 
+                max-width: 85%;
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+            #sendBtn { 
+                padding: 14px 24px;
+                font-size: 14px;
+            }
+            #userInput {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+            .map-tag {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            .welcome-message {
+                padding: 40px 15px;
+            }
+            .welcome-message h2 {
+                font-size: 20px;
+            }
+            .welcome-message p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="hero-title">🎮 Script Helper</h1>
+            <p class="subtitle">ค้นหาสคริปต์สำหรับเกม Roblox ของคุณ</p>
+        </div>
+
+        <div class="main-wrapper">
+            <div class="chat-area" id="chatArea">
+                <div class="welcome-message">
+                    <h2>ยินดีต้อนรับ!</h2>
+                    <p>พิมพ์ชื่อแมพ Roblox ที่คุณต้องการค้นหาสคริปต์</p>
+                    <p style="font-size: 13px; color: #64748b;">ตัวอย่าง: BlockSpin, Blox Fruits, Pet Simulator</p>
+                    <div class="example-maps">
+                        <div class="map-tag" onclick="searchMap('blockspin')">BlockSpin</div>
+                        <div class="map-tag" onclick="searchMap('bloxfruits')">Blox Fruits</div>
+                        <div class="map-tag" onclick="searchMap('petsimulator')">Pet Simulator</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="พิมพ์ชื่อแมพหรือเลือกตัวเลือก..." onkeypress="handleKeyPress(event)">
+                <button id="sendBtn" onclick="sendMessage()">ส่ง</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        let currentState = 'idle';
+        let currentMap = null;
+        let currentOptions = null;
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+
+            addMessage(message, 'user');
+            
+            setTimeout(() => {
+                processMessage(message);
+            }, 300);
+
+            input.value = '';
+            input.focus();
+        }
+
+        function processMessage(message) {
+            if (currentState === 'idle') {
+                searchMapByName(message);
+            } else if (currentState === 'waiting_for_selection') {
+                handleSelection(message);
+            }
+        }
+
+        function searchMapByName(mapName) {
+            const searchKey = mapName.toLowerCase().trim();
+            
+            if (scripts[searchKey]) {
+                const mapData = scripts[searchKey];
+                
+                if (mapData.options.length === 1) {
+                    displayScript(mapData.name, mapData.options[0]);
+                    currentState = 'idle';
+                } else {
+                    displayOptions(mapData);
+                    currentState = 'waiting_for_selection';
+                    currentMap = searchKey;
+                    currentOptions = mapData.options;
+                }
+            } else {
+                const response = `❌ ขอโทษครับ ไม่พบสคริปต์สำหรับ "${mapName}"\n\nลองพิมพ์ชื่อแมพอื่น หรือตรวจสอบการสะกดให้ถูกต้องครับ`;
+                addMessage(response, 'bot');
+                currentState = 'idle';
+            }
+        }
+
+        function displayOptions(mapData) {
+            let optionsHtml = `<div class="options-list">`;
+            optionsHtml += `<strong>เจอสคริปต์ของ ${mapData.name}</strong><br><br>`;
+            
+            mapData.options.forEach((option, index) => {
+                optionsHtml += `<div class="option-item">${index + 1}. ${option.title}</div>`;
+            });
+            
+            optionsHtml += `<br><strong>กรุณาเลือกหมายเลขที่ต้องการ:</strong>`;
+            optionsHtml += `</div>`;
+            
+            addMessage(optionsHtml, 'bot', true);
+        }
+
+        function handleSelection(input) {
+            const selection = parseInt(input);
+            
+            if (isNaN(selection) || selection < 1 || selection > currentOptions.length) {
+                const response = `❌ กรุณาเลือกหมายเลข 1-${currentOptions.length} เท่านั้นครับ`;
+                addMessage(response, 'bot');
+                return;
+            }
+
+            const selectedOption = currentOptions[selection - 1];
+            const mapName = scripts[currentMap].name;
+            displayScript(mapName, selectedOption);
+            
+            currentState = 'idle';
+            currentMap = null;
+            currentOptions = null;
+        }
+
+        function displayScript(mapName, scriptData) {
+            const scriptId = 'script-' + Date.now();
+            const response = `
+                ✅ คุณเลือก: <strong>${scriptData.title}</strong> (${mapName})
+                <div class="script-code" id="${scriptId}">
+                    <button class="copy-btn" onclick="copyScript('${scriptId}')">คัดลอก</button>
+                    ${scriptData.code}
+                </div>
+            `;
+            addMessage(response, 'bot', true);
+        }
+
+        function copyScript(scriptId) {
+            const scriptElement = document.getElementById(scriptId);
+            const button = scriptElement.querySelector('.copy-btn');
+            const scriptText = scriptElement.textContent.replace('คัดลอก', '').trim();
+            
+            navigator.clipboard.writeText(scriptText).then(() => {
+                button.textContent = '✓ คัดลอกแล้ว';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = 'คัดลอก';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function addMessage(text, type, isHtml = false) {
+            const chatArea = document.getElementById('chatArea');
+            
+            const welcome = chatArea.querySelector('.welcome-message');
+            if (welcome) {
+                welcome.remove();
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const label = type === 'user' ? 'คุณ' : 'ระบบ';
+            
+            if (isHtml) {
+                messageDiv.innerHTML = `
+                    <div class="message-label">${label}</div>
+                    <div class="message-bubble">${text}</div>
+                `;
+            } else {
+                const bubble = document.createElement('div');
+                bubble.className = 'message-bubble';
+                bubble.textContent = text;
+                
+                const labelDiv = document.createElement('div');
+                labelDiv.className = 'message-label';
+                labelDiv.textContent = label;
+                
+                messageDiv.appendChild(labelDiv);
+                messageDiv.appendChild(bubble);
+            }
+            
+            chatArea.appendChild(messageDiv);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function searchMap(mapName) {
+            document.getElementById('userInput').value = mapName;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('userInput').focus();
+        });
+    </script>
+</body>
+  </html>
