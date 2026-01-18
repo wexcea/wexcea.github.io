@@ -1,8 +1,1203 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-    <meta http-equiv="refresh" content="0; url=https://link-target.net/1404977/k3zT6XAYZler">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wexcea - Home</title>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Prompt:wght@300;400;600;700&family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --background-blur: 2px;
+            --background-type: 'video';
+            --background-url: 'https://i.pinimg.com/1200x/10/77/61/107761414d06c715eaeaafae60f85025.jpg';
+            --video-url: 'https://raw.githubusercontent.com/wexcea/rbx-scripts/main/assets/Background-video.mp4';
+            --youtube-url: '';
+            
+            --primary-red: #ef4444;
+            --secondary-red: #dc2626;
+            --light-red: #f87171;
+            --dark-red: #b91c1c;
+            --accent-red: #e11d48;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Sarabun', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background-image, .background-video, .background-youtube {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(var(--background-blur));
+            opacity: 0.3;
+            display: none;
+        }
+
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.2), rgba(0, 0, 0, 0.85));
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #450a0a, #7f1d1d, #991b1b);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+
+        .loading-dots {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .loading-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--light-red);
+            border-radius: 50%;
+            animation: dotPulse 1.5s ease-in-out infinite;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        .loading-text {
+            font-family: 'Space Grotesk', 'Noto Sans Thai', 'Sarabun', sans-serif;
+            font-size: 18px;
+            color: var(--light-red);
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        .loading-screen.hidden { opacity: 0; visibility: hidden; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        .main-content { min-height: 100vh; padding: 60px 0; opacity: 0; animation: fadeInUp 1s ease-out 0.5s forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .hero-title {
+            font-family: 'Outfit', 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            text-align: center;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--dark-red), var(--primary-red), var(--light-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+            animation: glow 2s ease-in-out infinite alternate;
+            letter-spacing: -2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hero-logo {
+            width: clamp(60px, 10vw, 100px);
+            height: clamp(60px, 10vw, 100px);
+            border-radius: 50%;
+            border: 3px solid var(--light-red);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+            object-fit: cover;
+        }
+
+        @keyframes glow { from { filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.5)); } to { filter: drop-shadow(0 0 30px rgba(239, 68, 68, 0.8)); } }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--light-red);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .social-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--light-red);
+        }
+
+        .search-container {
+            max-width: 700px;
+            margin: 15px auto 15px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            background: rgba(239, 68, 68, 0.05);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(239, 68, 68, 0.25);
+            border-radius: 50px;
+            padding: 18px 60px 18px 25px;
+            font-family: 'Inter', 'Noto Sans Thai', 'Sarabun', sans-serif;
+            font-size: 16px;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-box:focus {
+            border-color: var(--light-red);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+        }
+
+        .search-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--light-red);
+        }
+
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        /* Google Ads Container */
+        .ad-container {
+            margin: 30px auto;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-container.top-ad {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .ad-container.bottom-ad {
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .script-card {
+            background: rgba(239, 68, 68, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .script-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .script-card:hover::before {
+            left: 100%;
+        }
+
+        .script-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+            border-color: var(--light-red);
+        }
+
+        .script-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .script-card:hover .script-logo {
+            border-color: var(--light-red);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+        }
+
+        .script-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .script-name {
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--light-red);
+            margin-bottom: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .script-description {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .arrow-button {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, var(--dark-red), var(--primary-red));
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .arrow-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .arrow-button:hover::before {
+            left: 100%;
+        }
+
+        .arrow-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            transition: transform 0.3s ease;
+        }
+
+        .arrow-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
+        }
+
+        .arrow-button:hover svg {
+            transform: translateX(3px);
+        }
+
+        .arrow-button:active {
+            transform: scale(1.05);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        /* Menu Button */
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(239, 68, 68, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .menu-button:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--light-red);
+            transform: scale(1.1);
+        }
+
+        .menu-button svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--light-red);
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .menu-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-container {
+            background: rgba(239, 68, 68, 0.05);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 400px;
+            width: 90%;
+            animation: menuSlideIn 0.4s ease-out;
+        }
+
+        @keyframes menuSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--light-red);
+            transform: rotate(90deg);
+        }
+
+        .menu-close svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--light-red);
+        }
+
+        .menu-title {
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--light-red);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menu-item {
+            background: rgba(239, 68, 68, 0.05);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-item:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--light-red);
+            transform: translateX(5px);
+        }
+
+        .menu-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--light-red);
+            flex-shrink: 0;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: rgba(239, 68, 68, 0.05);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 700px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.4s ease-out;
+            position: relative;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--light-red);
+            transform: rotate(90deg);
+        }
+
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--light-red);
+        }
+
+        .modal-title {
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--light-red);
+            margin-bottom: 20px;
+            padding-right: 50px;
+        }
+
+        .modal-content {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .modal-content h3 {
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--light-red);
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        .modal-content p {
+            margin-bottom: 15px;
+        }
+
+        .modal-content a {
+            color: var(--light-red);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content a:hover {
+            color: var(--light-red);
+            text-decoration: underline;
+        }
+
+        .modal-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .modal-container::-webkit-scrollbar-thumb {
+            background: rgba(239, 68, 68, 0.5);
+            border-radius: 10px;
+        }
+
+        .modal-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(239, 68, 68, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 0 15px; }
+            .main-content { padding: 40px 0; }
+            .social-icon {
+                width: 45px;
+                height: 45px;
+            }
+            .social-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+            .scripts-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .script-card {
+                padding: 15px;
+            }
+            .script-logo {
+                width: 60px;
+                height: 60px;
+                border-radius: 12px;
+            }
+            .script-name {
+                font-size: 0.95rem;
+            }
+            .script-description {
+                font-size: 0.75rem;
+            }
+            .arrow-button {
+                width: 40px;
+                height: 40px;
+            }
+            .arrow-button svg {
+                width: 18px;
+                height: 18px;
+            }
+            .search-box {
+                padding: 15px 50px 15px 20px;
+                font-size: 14px;
+            }
+            .search-icon {
+                width: 20px;
+                height: 20px;
+                right: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="background-container">
+        <img id="backgroundImage" class="background-image" src="" alt="Background">
+        <video id="backgroundVideo" class="background-video" autoplay muted loop playsinline>
+            <source src="" type="video/mp4">
+        </video>
+        <iframe id="backgroundYoutube" class="background-youtube" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="background-overlay"></div>
+    </div>
+
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-dots">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <!-- Menu Button -->
+    <div class="menu-button" id="menuButton">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/>
+        </svg>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-container">
+            <div class="menu-close" id="menuClose">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                    <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+                </svg>
+            </div>
+            <h2 class="menu-title">Menu</h2>
+            <div class="menu-items">
+                <div class="menu-item" onclick="showAbout()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
+                    </svg>
+                    About
+                </div>
+                <div class="menu-item" onclick="showTerms()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                        <path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/>
+                    </svg>
+                    Terms & Conditions
+                </div>
+                <div class="menu-item" onclick="showPrivacy()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z"/>
+                    </svg>
+                    Privacy Policy
+                </div>
+                <div class="menu-item" onclick="showContact()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/>
+                    </svg>
+                    Contact
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <div class="modal-close" id="modalClose">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                    <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+                </svg>
+            </div>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div class="modal-content" id="modalContent"></div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <h1 class="hero-title">
+                <img src="https://raw.githubusercontent.com/wexcea/rbx-scripts/refs/heads/main/assets/Logo-Tittle.png" alt="Wexcea Logo" class="hero-logo">
+                Wexcea
+            </h1>
+            
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@gexcea?_r=1&_t=ZS-91PMPKPiMNu" target="_blank" class="social-icon" title="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3v178.8A162.6 162.6 0 1 1 185 188.3v89.3a74.6 74.6 0 1 0 52.2 71.2V0h88a121.2 121.2 0 0 0 1.9 22.2 122.2 122.2 0 0 0 35.5 71.5 121.4 121.4 0 0 0 52.5 34.4 121.5 121.5 0 0 0 32.9 4.5v77.3z"/>
+                    </svg>
+                </a>
+                <a href="https://discord.gg/VjTJdJ8m2u" target="_blank" class="social-icon" title="Discord">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                        <path d="M524.5 69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9 337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0 -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0 0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0 0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0 0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7 9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9 .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8 1.9 1.9 0 0 0 -1 2.6 391.1 391.1 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486 0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5 337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8 59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4 219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-box" id="searchBox" placeholder="Search scripts...">
+                <div class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Top Ad (After Search) -->
+            <div class="ad-container top-ad">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+                     data-ad-slot="YYYYYYYYYY"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+
+            <div class="scripts-grid" id="scriptsGrid">
+                <!-- Script cards will be dynamically inserted here -->
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                No scripts found
+            </div>
+
+            <!-- Bottom Ad (After Scripts) -->
+            <div class="ad-container bottom-ad">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+                     data-ad-slot="ZZZZZZZZZZ"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Google Ads
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <script>
+        // Sample script data
+        const scripts = [
+            {
+                id: 3,
+                name: "[🌲] 99 Nights In The Forest",
+                description: "Auto farm Level All Class (Vector Hub)",
+                logo: "https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/99night-Christmas.jpg",
+                url: "https://wexcea.github.io/rbx-scripts/99n-forest-auto-up-level-class"
+            },
+            {
+                id: 2,
+                name: "The Forge (Chiyo Script)",
+                description: "Auto farm ore, monster and other",
+                logo: "https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/The-Forge.jpg",
+                url: "https://wexcea.github.io/rbx-scripts/The-Forge-Chiyo-Hub"
+            },
+            {
+                id: 1,
+                name: "99 Nights in the Forest",
+                description: "Auto Farm Diamond Script",
+                logo: "https://raw.githubusercontent.com/wexcea/rbx-scripts/refs/heads/main/assets/Map-logo/99-nights.jpg",
+                url: "https://wexcea.github.io/rbx-scripts/99n-forest-auto-diamond"
+            }
+        ];
+
+        function getYouTubeEmbedUrl(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            
+            if (match && match[2].length === 11) {
+                return `https://www.youtube.com/embed/${match[2]}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playlist=${match[2]}`;
+            }
+            return null;
+        }
+
+        function initBackground() {
+            const backgroundType = getComputedStyle(document.documentElement).getPropertyValue('--background-type').replace(/['"]/g, '');
+            const backgroundUrl = getComputedStyle(document.documentElement).getPropertyValue('--background-url').replace(/['"]/g, '');
+            const videoUrl = getComputedStyle(document.documentElement).getPropertyValue('--video-url').replace(/['"]/g, '');
+            const youtubeUrl = getComputedStyle(document.documentElement).getPropertyValue('--youtube-url').replace(/['"]/g, '');            
+            setBackground(backgroundType, backgroundType === 'youtube' ? youtubeUrl : backgroundType === 'video' ? videoUrl : backgroundUrl);
+        }
+
+        function setBackground(type, url) {
+            const backgroundImage = document.getElementById('backgroundImage');
+            const backgroundVideo = document.getElementById('backgroundVideo');
+            const backgroundYoutube = document.getElementById('backgroundYoutube');
+            backgroundImage.style.display = 'none';
+            backgroundVideo.style.display = 'none';
+            backgroundYoutube.style.display = 'none';
+            if (type === 'youtube') {
+                const embedUrl = getYouTubeEmbedUrl(url);
+                if (embedUrl) {
+                    backgroundYoutube.style.display = 'block';
+                    backgroundYoutube.src = embedUrl;
+                } else {
+                    backgroundImage.style.display = 'block';
+                    backgroundImage.src = getComputedStyle(document.documentElement).getPropertyValue('--background-url').replace(/['"]/g, '');
+                }
+            } else if (type === 'video') {
+                backgroundVideo.style.display = 'block';
+                backgroundVideo.src = url;
+                backgroundVideo.loop = true;
+                backgroundVideo.muted = true;
+                backgroundVideo.autoplay = true;
+                backgroundVideo.playsInline = true;                
+            } else {
+                backgroundImage.style.display = 'block';
+                backgroundImage.src = url;
+            }
+        }
+
+        function hideLoading() {
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.classList.add('hidden');
+            }, 2000);
+        }
+
+        function renderScripts(scriptsToRender) {
+            const scriptsGrid = document.getElementById('scriptsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            scriptsGrid.innerHTML = '';
+            
+            if (scriptsToRender.length === 0) {
+                scriptsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            scriptsGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+            
+            scriptsToRender.forEach(script => {
+                const card = document.createElement('div');
+                card.className = 'script-card';
+                card.innerHTML = `
+                    <img src="${script.logo}" alt="${script.name}" class="script-logo">
+                    <div class="script-info">
+                        <div class="script-name">${script.name}</div>
+                        <div class="script-description">${script.description}</div>
+                    </div>
+                    <button class="arrow-button" onclick="viewScript(${script.id})">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/>
+                        </svg>
+                    </button>
+                `;
+                scriptsGrid.appendChild(card);
+            });
+        }
+
+        function viewScript(id) {
+            const script = scripts.find(s => s.id === id);
+            if (script && script.url) {
+                window.location.href = script.url;
+            }
+        }
+
+        function handleSearch(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredScripts = scripts.filter(script => 
+                script.name.toLowerCase().includes(searchTerm) || 
+                script.description.toLowerCase().includes(searchTerm)
+            );
+            renderScripts(filteredScripts);
+        }
+
+        // Menu Functions
+        function showMenu() {
+            document.getElementById('menuOverlay').classList.add('show');
+        }
+
+        function hideMenu() {
+            document.getElementById('menuOverlay').classList.remove('show');
+        }
+
+        function showModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContent').innerHTML = content;
+            document.getElementById('modalOverlay').classList.add('show');
+            hideMenu();
+        }
+
+        function hideModal() {
+            document.getElementById('modalOverlay').classList.remove('show');
+        }
+
+        function showAbout() {
+            const content = `
+                <p>Welcome to <strong>Wexcea</strong> - your premier destination for Roblox game scripts and automation tools.</p>
+                
+                <h3>What We Offer</h3>
+                <p>Wexcea provides high-quality, tested scripts for various Roblox games. Our scripts are designed to enhance your gaming experience with features like auto-farming, leveling, and resource collection.</p>
+                
+                <h3>Our Mission</h3>
+                <p>We aim to provide the Roblox community with reliable, safe, and efficient scripts that help players enjoy their favorite games to the fullest. All our scripts are regularly updated and tested to ensure compatibility and safety.</p>
+                
+                <h3>Features</h3>
+                <p>• Regular script updates<br>
+                • Safe and tested scripts<br>
+                • Easy to use interface<br>
+                • Multi-game support<br>
+                • Active community support</p>
+                
+                <h3>Stay Connected</h3>
+                <p>Follow us on our social media channels for the latest updates, new script releases, and community news.</p>
+            `;
+            showModal('About Wexcea', content);
+        }
+
+        function showTerms() {
+            const content = `
+                <p><strong>Last Updated:</strong> January 18, 2026</p>
+                
+                <h3>1. Acceptance of Terms</h3>
+                <p>By accessing and using Wexcea, you agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, you should not use our services.</p>
+                
+                <h3>2. Use of Scripts</h3>
+                <p>All scripts provided on Wexcea are for educational purposes only. Users are responsible for how they use these scripts. We do not encourage or condone the violation of any game's terms of service.</p>
+                
+                <h3>3. Disclaimer</h3>
+                <p>We are not responsible for any damage, claims, bans, or consequences that may arise from using our scripts. Use at your own risk. All scripts are provided "as is" without any warranties.</p>
+                
+                <h3>4. User Responsibilities</h3>
+                <p>Users must:<br>
+                • Be at least 13 years old to use this website<br>
+                • Not use scripts for malicious purposes<br>
+                • Respect the intellectual property of game developers<br>
+                • Accept full responsibility for their actions</p>
+                
+                <h3>5. Intellectual Property</h3>
+                <p>All content, scripts, and materials on Wexcea are protected by copyright and intellectual property laws. Unauthorized reproduction or distribution is prohibited.</p>
+                
+                <h3>6. Modifications</h3>
+                <p>We reserve the right to modify these terms at any time. Continued use of our website after changes constitutes acceptance of the modified terms.</p>
+                
+                <h3>7. Limitation of Liability</h3>
+                <p>Wexcea and its operators shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use or inability to use our scripts or services.</p>
+            `;
+            showModal('Terms & Conditions', content);
+        }
+
+        function showPrivacy() {
+            const content = `
+                <p><strong>Last Updated:</strong> January 18, 2026</p>
+                
+                <h3>1. Information We Collect</h3>
+                <p>We collect minimal information to provide and improve our services:</p>
+                <p>• Usage data (pages visited, time spent)<br>
+                • Device information (browser type, operating system)<br>
+                • IP addresses for security purposes</p>
+                
+                <h3>2. Cookies and Tracking</h3>
+                <p>We use cookies and similar tracking technologies to:<br>
+                • Remember your preferences<br>
+                • Analyze website traffic<br>
+                • Serve relevant advertisements through Google AdSense</p>
+                
+                <h3>3. Google AdSense</h3>
+                <p>This website uses Google AdSense to display advertisements. Google uses cookies to serve ads based on your prior visits to this website or other websites. You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank">Google Ads Settings</a>.</p>
+                
+                <h3>4. How We Use Your Information</h3>
+                <p>We use collected information to:<br>
+                • Improve our website and services<br>
+                • Analyze usage patterns<br>
+                • Prevent fraud and abuse<br>
+                • Comply with legal obligations</p>
+                
+                <h3>5. Data Sharing</h3>
+                <p>We do not sell or rent your personal information to third parties. We may share data with:<br>
+                • Service providers (Google Analytics, AdSense)<br>
+                • Legal authorities when required by law</p>
+                
+                <h3>6. Data Security</h3>
+                <p>We implement appropriate security measures to protect your information. However, no method of transmission over the internet is 100% secure.</p>
+                
+                <h3>7. Your Rights</h3>
+                <p>You have the right to:<br>
+                • Access your personal data<br>
+                • Request data deletion<br>
+                • Opt-out of cookies (may affect functionality)<br>
+                • Contact us with privacy concerns</p>
+                
+                <h3>8. Children's Privacy</h3>
+                <p>Our website is not intended for children under 13. We do not knowingly collect information from children under 13.</p>
+                
+                <h3>9. Changes to Privacy Policy</h3>
+                <p>We may update this privacy policy from time to time. Continued use of our website constitutes acceptance of any changes.</p>
+            `;
+            showModal('Privacy Policy', content);
+        }
+
+        function showContact() {
+            const content = `
+                <p>Have questions, suggestions, or need support? We'd love to hear from you!</p>
+                
+                <h3>Get in Touch</h3>
+                <p><strong>Discord:</strong> Join our community server<br>
+                <a href="https://discord.gg/VjTJdJ8m2u" target="_blank">https://discord.gg/VjTJdJ8m2u</a></p>
+                
+                <p><strong>TikTok:</strong> Follow us for updates<br>
+                <a href="https://www.tiktok.com/@gexcea" target="_blank">@gexcea</a></p>
+                
+                <h3>Support</h3>
+                <p>For technical support or script-related issues, please join our Discord server where our community and moderators can assist you.</p>
+                
+                <h3>Business Inquiries</h3>
+                <p>For business or partnership inquiries, please reach out through our Discord server with [Business] in your message title.</p>
+                
+                <h3>Response Time</h3>
+                <p>We typically respond within 24-48 hours. For urgent matters, Discord is the fastest way to reach us.</p>
+                
+                <h3>Community Guidelines</h3>
+                <p>When contacting us, please:<br>
+                • Be respectful and courteous<br>
+                • Provide clear descriptions of issues<br>
+                • Include relevant screenshots if applicable<br>
+                • Avoid spamming or repeated messages</p>
+            `;
+            showModal('Contact Us', content);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initBackground();
+            hideLoading();
+            renderScripts(scripts);
+            
+            const searchBox = document.getElementById('searchBox');
+            const menuButton = document.getElementById('menuButton');
+            const menuClose = document.getElementById('menuClose');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const modalClose = document.getElementById('modalClose');
+            const modalOverlay = document.getElementById('modalOverlay');
+            
+            searchBox.addEventListener('input', handleSearch);
+            menuButton.addEventListener('click', showMenu);
+            menuClose.addEventListener('click', hideMenu);
+            modalClose.addEventListener('click', hideModal);
+            
+            // Close menu when clicking outside
+            menuOverlay.addEventListener('click', function(e) {
+                if (e.target === menuOverlay) {
+                    hideMenu();
+                }
+            });
+            
+            // Close modal when clicking outside
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) {
+                    hideModal();
+                }
+            });
+        });
+    </script>
 </body>
-</html>
+    </html>
