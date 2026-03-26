@@ -119,19 +119,20 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 15px;
+            margin-bottom: 0;
+            padding-top: 20px;
             animation: glow 2s ease-in-out infinite alternate;
             letter-spacing: -2px;
             display: flex; align-items: center;
-            justify-content: center; gap: 8px; flex-wrap: wrap;
+            justify-content: center; gap: 20px; flex-wrap: wrap;
         }
 
         .hero-logo {
-            width: clamp(60px, 10vw, 100px);
-            height: clamp(60px, 10vw, 100px);
+            width: clamp(70px, 11vw, 110px);
+            height: clamp(70px, 11vw, 110px);
             border-radius: 50%;
             border: 3px solid var(--light);
-            box-shadow: 0 0 20px rgba(203, 213, 225, 0.5);
+            box-shadow: 0 0 24px rgba(203, 213, 225, 0.5);
             animation: glow 2s ease-in-out infinite alternate;
             object-fit: cover;
         }
@@ -351,7 +352,7 @@
             <div class="loading-dot"></div>
             <div class="loading-dot"></div>
         </div>
-        <div class="loading-text">Loading...</div>
+        <div class="loading-text">กำลังโหลด...</div>
     </div>
 
     <!-- Main content -->
@@ -364,30 +365,10 @@
                 Wexcea
             </h1>
 
-            <div class="social-links">
-                <a href="https://www.tiktok.com/@gexcea?_r=1&_t=ZS-91PMPKPiMNu" target="_blank" class="social-icon" title="TikTok">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                        <path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3v178.8A162.6 162.6 0 1 1 185 188.3v89.3a74.6 74.6 0 1 0 52.2 71.2V0h88a121.2 121.2 0 0 0 1.9 22.2 122.2 122.2 0 0 0 35.5 71.5 121.4 121.4 0 0 0 52.5 34.4 121.5 121.5 0 0 0 32.9 4.5v77.3z"/>
-                    </svg>
-                </a>
-                <a href="https://discord.gg/VjTJdJ8m2u" target="_blank" class="social-icon" title="Discord">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-                        <path d="M524.5 69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9 337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0 -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0 0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0 0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0 0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7 9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9 .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8 1.9 1.9 0 0 0 -1 2.6 391.1 391.1 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486 0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5 337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8 59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4 219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z"/>
-                    </svg>
-                </a>
-            </div>
-
-            <div class="search-container">
-                <input type="text" class="search-box" id="searchBox" placeholder="Search scripts...">
-                <div class="search-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
-                    </svg>
-                </div>
-            </div>
+            <div style="margin-top: 40px;"></div>
 
             <div class="scripts-grid" id="scriptsGrid"></div>
-            <div class="no-results" id="noResults" style="display: none;">No scripts found</div>
+            <div class="no-results" id="noResults" style="display: none;">ไม่พบรายการ</div>
 
         </div>
     </div>
@@ -395,25 +376,25 @@
     <script>
         const scripts = [
             {
-                id: 3,
-                name: "[🌲] 99 Nights In The Forest",
-                description: "Auto farm Level All Class (Vector Hub)",
-                logo: "https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/99night-Christmas.jpg",
-                url: "https://wexcea.github.io/rbx-scripts/99n-forest-auto-up-level-class"
+                id: 1,
+                name: "Donate Link",
+                description: "โดเนทตรงนี้ได้เลยนะครับ",
+                logo: "https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/Donate-logo.gif",
+                url: "https://easydonate.app/wexcea"
             },
             {
                 id: 2,
-                name: "The Forge (Chiyo Script)",
-                description: "Auto farm ore, monster and other",
-                logo: "https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/The-Forge.jpg",
-                url: "https://wexcea.github.io/rbx-scripts/The-Forge-Chiyo-Hub"
+                name: "Wexcea Shop",
+                description: "ดิสร้านผมเองครับ (เน้นโปรแกรม)",
+                logo: "https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/discord-logo.png",
+                url: "https://discord.gg/6Vv8e3YSU3"
             },
             {
-                id: 1,
-                name: "99 Nights in the Forest",
-                description: "Auto Farm Diamond Script",
-                logo: "https://raw.githubusercontent.com/wexcea/rbx-scripts/refs/heads/main/assets/Map-logo/99-nights.jpg",
-                url: "https://wexcea.github.io/rbx-scripts/99n-forest-auto-diamond"
+                id: 3,
+                name: "My Facebook",
+                description: "ติดต่องานตรงนี้เลยครับ",
+                logo: "https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/facebook-logo.png",
+                url: "https://www.facebook.com/share/14cf7G1rtvh/"
             }
         ];
 
@@ -499,19 +480,10 @@
             if (script && script.url) window.location.href = script.url;
         }
 
-        function handleSearch(e) {
-            const term = e.target.value.toLowerCase();
-            renderScripts(scripts.filter(s =>
-                s.name.toLowerCase().includes(term) ||
-                s.description.toLowerCase().includes(term)
-            ));
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             initBackground();
             hideLoading();
             renderScripts(scripts);
-            document.getElementById('searchBox').addEventListener('input', handleSearch);
         });
     </script>
 </body>
