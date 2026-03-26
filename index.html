@@ -597,6 +597,85 @@
             line-height: 1.55;
         }
         .bw-note b { color: #fbbf24; }
+        /* ── TikTok step popup ───────────────────────── */
+        .tiktok-warning {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.82);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.4s ease;
+        }
+        .tiktok-warning.active { opacity: 1; visibility: visible; }
+
+        .tk-card {
+            background: linear-gradient(160deg, #1c1c1e, #2c2c2e);
+            border-radius: 22px;
+            width: min(380px, 94vw);
+            overflow: hidden;
+            box-shadow: 0 28px 80px rgba(0,0,0,0.75);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .tk-header {
+            padding: 22px 22px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .tk-tiktok-icon {
+            width: 38px; height: 38px; flex-shrink: 0;
+            border-radius: 10px; overflow: hidden;
+        }
+        .tk-tiktok-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .tk-header-text {}
+        .tk-header-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem; font-weight: 700;
+            color: #ffffff; margin-bottom: 3px;
+        }
+        .tk-header-sub {
+            font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
+            font-size: 0.78rem; color: rgba(255,255,255,0.45);
+            line-height: 1.4;
+        }
+
+        .tk-body { padding: 18px 22px 22px; }
+
+        .tk-desc {
+            font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
+            font-size: 0.87rem; color: rgba(255,255,255,0.6);
+            margin-bottom: 16px; line-height: 1.65;
+        }
+
+        .tk-steps { display: flex; flex-direction: column; gap: 14px; }
+
+        .tk-step { display: flex; gap: 12px; align-items: flex-start; }
+
+        .tk-step-num {
+            width: 26px; height: 26px; flex-shrink: 0;
+            background: rgba(148,163,184,0.15);
+            border: 1px solid rgba(148,163,184,0.3);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem; font-weight: 700;
+            color: var(--light);
+            margin-top: 2px;
+        }
+
+        .tk-step-content { flex: 1; }
+        .tk-step-label {
+            font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
+            font-size: 0.85rem; color: rgba(255,255,255,0.8);
+            margin-bottom: 8px; line-height: 1.5;
+        }
+        .tk-step-img {
+            width: 100%; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
@@ -730,7 +809,7 @@
         function hideLoading() {
             setTimeout(() => {
                 document.getElementById('loadingScreen').classList.add('hidden');
-            }, 2000);
+            }, 800);
         }
 
         function renderScripts(list) {
@@ -817,14 +896,19 @@
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
 
         /* ── Browser detection ───────────────────────── */
+        function isTikTok() {
+            const ua = navigator.userAgent;
+            return /TikTok|trill|musical_ly|BytedanceWebview|ByteLocale|Bytedance/.test(ua);
+        }
+
         function isSupportedBrowser() {
             const ua = navigator.userAgent;
             const isChrome  = /Chrome\//.test(ua) && !/Edg\//.test(ua) && !/OPR\//.test(ua);
             const isFirefox = /Firefox\//.test(ua);
             const isEdge    = /Edg\//.test(ua);
             const isSafari  = /Safari\//.test(ua) && !/Chrome\//.test(ua);
-            const isInAppBrowser = /FBAN|FBAV|Instagram|Line|Twitter|Snapchat|MicroMessenger|TikTok|trill|musical_ly|BytedanceWebview|ByteLocale|Bytedance/.test(ua);
-            if (isInAppBrowser) return false;
+            const isInApp   = /FBAN|FBAV|Instagram|Line|Twitter|Snapchat|MicroMessenger|TikTok|trill|musical_ly|BytedanceWebview|ByteLocale|Bytedance/.test(ua);
+            if (isInApp) return false;
             return isChrome || isFirefox || isEdge || isSafari;
         }
 
@@ -856,16 +940,18 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             initBackground();
-            // Check browser during loading screen
             setTimeout(() => {
                 if (!isSupportedBrowser()) {
-                    // Stay on loading screen but show browser warning on top
-                    document.getElementById('browserWarning').classList.add('active');
+                    if (isTikTok()) {
+                        document.getElementById('tiktokWarning').classList.add('active');
+                    } else {
+                        document.getElementById('browserWarning').classList.add('active');
+                    }
                 } else {
                     hideLoading();
                     renderScripts(scripts);
                 }
-            }, 1500);
+            }, 600);
         });
     </script>
     <!-- Game popup modal -->
@@ -911,6 +997,45 @@
                     </a>
                 </div>
                 <div class="bw-note"><b>Note:</b> หากต้องการใช้งานต่อ โปรดใช้บราวเซอร์ที่รองรับเพื่อประสบการณ์ที่ดีที่สุด</div>
+            </div>
+        </div>
+    </div>
+    <!-- TikTok step-by-step popup -->
+    <div class="tiktok-warning" id="tiktokWarning">
+        <div class="tk-card">
+            <div class="tk-header">
+                <div class="tk-tiktok-icon">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg"
+                         style="filter: invert(1); padding: 5px; background:#000; border-radius:8px;"
+                         onerror="this.parentElement.innerHTML='🎵'">
+                </div>
+                <div class="tk-header-text">
+                    <div class="tk-header-title">เปิดในบราวเซอร์ภายนอก</div>
+                    <div class="tk-header-sub">TikTok browser ไม่รองรับ กรุณาเปิดด้วยบราวเซอร์ปกติ</div>
+                </div>
+            </div>
+            <div class="tk-body">
+                <div class="tk-desc">ทำตามขั้นตอนด้านล่างเพื่อเปิดในบราวเซอร์ภายนอก</div>
+                <div class="tk-steps">
+                    <div class="tk-step">
+                        <div class="tk-step-num">1</div>
+                        <div class="tk-step-content">
+                            <div class="tk-step-label">แตะที่ปุ่ม <b style="color:var(--light)">···</b> มุมขวาบน</div>
+                            <img class="tk-step-img"
+                                 src="https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/step1.png"
+                                 alt="Step 1">
+                        </div>
+                    </div>
+                    <div class="tk-step">
+                        <div class="tk-step-num">2</div>
+                        <div class="tk-step-content">
+                            <div class="tk-step-label">เลือก <b style="color:var(--light)">เปิดในเบราว์เซอร์</b></div>
+                            <img class="tk-step-img"
+                                 src="https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/step2.png"
+                                 alt="Step 2">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
