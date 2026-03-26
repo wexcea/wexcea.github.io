@@ -600,24 +600,41 @@
         /* ── TikTok step popup ───────────────────────── */
         .tiktok-warning {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.82);
-            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.45);
             z-index: 99999;
             display: flex; align-items: center; justify-content: center;
             padding: 20px;
             opacity: 0; visibility: hidden;
             transition: opacity 0.4s ease;
+            /* ล็อกไม่ให้กดพื้นหลัง */
+            pointer-events: none;
         }
-        .tiktok-warning.active { opacity: 1; visibility: visible; }
+        .tiktok-warning.active {
+            opacity: 1; visibility: visible;
+            pointer-events: all;
+        }
+        /* บังไม่ให้คลิกทะลุ overlay ไปถึงหน้าเว็บ */
+        .tiktok-warning.active::before {
+            content: '';
+            position: absolute; inset: 0;
+            z-index: -1;
+        }
 
         .tk-card {
-            background: linear-gradient(160deg, #1c1c1e, #2c2c2e);
+            background: rgba(30, 30, 32, 0.72);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
             border-radius: 22px;
             width: min(380px, 94vw);
-            overflow: hidden;
-            box-shadow: 0 28px 80px rgba(0,0,0,0.75);
-            border: 1px solid rgba(255,255,255,0.1);
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow: 0 28px 80px rgba(0,0,0,0.55);
+            border: 1px solid rgba(255,255,255,0.12);
         }
+        /* scrollbar เล็กๆ */
+        .tk-card::-webkit-scrollbar { width: 4px; }
+        .tk-card::-webkit-scrollbar-track { background: transparent; }
+        .tk-card::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 
         .tk-header {
             padding: 22px 22px 14px;
@@ -625,10 +642,12 @@
             display: flex; align-items: center; gap: 12px;
         }
         .tk-tiktok-icon {
-            width: 38px; height: 38px; flex-shrink: 0;
-            border-radius: 10px; overflow: hidden;
+            width: 42px; height: 42px; flex-shrink: 0;
+            border-radius: 12px; overflow: hidden;
+            background: #000;
+            display: flex; align-items: center; justify-content: center;
         }
-        .tk-tiktok-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .tk-tiktok-icon img { width: 28px; height: 28px; object-fit: contain; }
         .tk-header-text {}
         .tk-header-title {
             font-family: 'Space Grotesk', sans-serif;
@@ -675,6 +694,13 @@
             width: 100%; border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.1);
             object-fit: contain;
+        }
+        .tk-step-caption {
+            font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            margin-top: 6px;
         }
     </style>
 </head>
@@ -1005,9 +1031,9 @@
         <div class="tk-card">
             <div class="tk-header">
                 <div class="tk-tiktok-icon">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg"
-                         style="filter: invert(1); padding: 5px; background:#000; border-radius:8px;"
-                         onerror="this.parentElement.innerHTML='🎵'">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tiktok.svg"
+                         style="filter: invert(1);"
+                         onerror="this.src='https://cdn.worldvectorlogo.com/logos/tiktok-icon-2.svg'">
                 </div>
                 <div class="tk-header-text">
                     <div class="tk-header-title">เปิดในบราวเซอร์ภายนอก</div>
@@ -1033,6 +1059,7 @@
                             <img class="tk-step-img"
                                  src="https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/Map-logo/step2.png"
                                  alt="Step 2">
+                            <div class="tk-step-caption">ขอบคุณครับ 🙏</div>
                         </div>
                     </div>
                 </div>
