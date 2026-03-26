@@ -501,40 +501,42 @@
         /* ลูกศรแดงชี้มุมขวาบน — independent fixed */
         .tk-arrow {
             position: fixed;
-            top: 6px;
-            right: 8px;
+            top: 52px;
+            right: 6px;
             z-index: 100001;
             display: none;
             align-items: center;
             justify-content: flex-end;
-            gap: 8px;
+            gap: 10px;
             animation: arrowBounce 0.7s ease-in-out infinite alternate;
             pointer-events: none;
+            max-width: calc(100vw - 16px);
         }
         .tk-arrow.visible { display: flex; }
 
         .tk-arrow-text {
             font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 600;
+            font-size: 0.82rem;
+            font-weight: 700;
             color: #ffffff;
             text-align: right;
-            line-height: 1.5;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.8);
-            background: rgba(0,0,0,0.45);
-            padding: 5px 9px;
-            border-radius: 8px;
+            line-height: 1.55;
+            background: rgba(0,0,0,0.82);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 12px;
+            border-radius: 10px;
+            flex-shrink: 1;
         }
 
         .tk-arrow svg {
-            width: 54px; height: 54px;
+            width: 60px; height: 60px;
             filter: drop-shadow(0 0 10px rgba(239,68,68,1));
             flex-shrink: 0;
         }
 
         @keyframes arrowBounce {
-            from { transform: translateY(4px); }
-            to   { transform: translateY(-10px); }
+            from { transform: translateY(0px); }
+            to   { transform: translateY(-12px); }
         }
 
         .tk-card {
@@ -903,9 +905,12 @@
     </div>
     <!-- ลูกศรแดงชี้ปุ่ม ··· แยกออกมาเป็น fixed element -->
     <div class="tk-arrow" id="tkArrow">
-        <div class="tk-arrow-text">กดแถวๆ นี้ครับผม<br><span style="font-weight:400;font-size:0.72rem;opacity:0.8;">(ใครใช้โหมดมืดลองกดมั่วๆ ดูครับเผื่อเจอ)</span></div>
+        <div class="tk-arrow-text">
+            กดแถวๆ นี้ครับผม<br>
+            <span style="font-weight:500;font-size:0.72rem;opacity:0.75;">(โหมดมืดลองกดมั่วๆ เผื่อเจอ)</span>
+        </div>
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 20V4M12 4L5 11M12 4L19 11" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 20V4M12 4L5 11M12 4L19 11" stroke="#ef4444" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
 
