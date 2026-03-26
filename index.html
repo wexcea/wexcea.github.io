@@ -99,7 +99,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         .main-content {
-            min-height: 100vh; padding: 60px 0;
+            min-height: 100vh; padding: 30px 0;
             opacity: 0;
             animation: fadeInUp 1s ease-out 0.5s forwards;
         }
@@ -146,8 +146,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
-            padding-top: 20px;
+            gap: 14px;
+            padding-top: 0;
             margin-bottom: 0;
         }
 
@@ -172,7 +172,7 @@
             font-size: 0.78rem;
             font-weight: 500;
             color: var(--light);
-            cursor: default;
+            cursor: pointer;
             transition: all 0.25s ease;
             white-space: nowrap;
         }
@@ -393,6 +393,93 @@
             .search-box   { padding: 15px 50px 15px 20px; font-size: 14px; }
             .search-icon  { width: 20px; height: 20px; right: 20px; }
         }
+        /* ── Popup modal ─────────────────────────────── */
+        .popup-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(6px);
+            z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+        .popup-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+        .popup-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            border-radius: 20px;
+            padding: 32px 28px 28px;
+            width: min(340px, 88vw);
+            text-align: center;
+            position: relative;
+            transform: scale(0.88) translateY(20px);
+            transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .popup-overlay.active .popup-card {
+            transform: scale(1) translateY(0);
+        }
+        .popup-close {
+            position: absolute; top: 14px; right: 16px;
+            background: rgba(148,163,184,0.1);
+            border: 1px solid rgba(148,163,184,0.2);
+            border-radius: 50%;
+            width: 30px; height: 30px;
+            color: var(--primary); font-size: 0.75rem;
+            cursor: pointer; transition: all 0.2s ease;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .popup-close:hover {
+            background: rgba(148,163,184,0.22);
+            color: var(--light);
+        }
+        .popup-icon-wrap {
+            width: 64px; height: 64px;
+            margin: 0 auto 14px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(148,163,184,0.3);
+            box-shadow: 0 0 20px rgba(148,163,184,0.2);
+        }
+        .popup-icon-wrap img {
+            width: 100%; height: 100%; object-fit: contain;
+        }
+        .popup-game-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem; font-weight: 700;
+            color: var(--light);
+            margin-bottom: 16px;
+        }
+        .popup-body {
+            font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.8;
+        }
+        .popup-body .popup-row {
+            display: flex; flex-direction: column;
+            gap: 2px; margin-bottom: 10px;
+        }
+        .popup-body .popup-label {
+            font-size: 0.72rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .popup-body .popup-value {
+            font-size: 1rem;
+            color: var(--light);
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .popup-body .popup-note {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.55);
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -430,16 +517,20 @@
                 </h1>
 
                 <div class="game-badges">
-                    <div class="game-badge">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/31/Free_Fire_Logo.png/220px-Free_Fire_Logo.png" alt="Free Fire">
+                    <div class="game-badge" onclick="openPopup('freefire')">
+                        <img src="https://cdn.freefireinfo.net/wp-content/uploads/2021/03/free-fire-icon.png" alt="Free Fire"
+                             onerror="this.src='https://img.icons8.com/color/48/free-fire.png'">
                         Free Fire
                     </div>
-                    <div class="game-badge">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Roblox_player_icon_black.svg/1200px-Roblox_player_icon_black.svg.png" alt="Roblox" style="filter: grayscale(100%) invert(1) brightness(0.75);">
+                    <div class="game-badge" onclick="openPopup('roblox')">
+                        <img src="https://cdn2.iconfinder.com/data/icons/metro-ui-icon-set/512/Roblox.png" alt="Roblox"
+                             style="filter: grayscale(100%) brightness(1.1);"
+                             onerror="this.src='https://img.icons8.com/ios-filled/50/roblox.png'">
                         Roblox
                     </div>
-                    <div class="game-badge">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png" alt="Minecraft">
+                    <div class="game-badge" onclick="openPopup('minecraft')">
+                        <img src="https://cdn2.iconfinder.com/data/icons/metro-ui-icon-set/512/Minecraft.png" alt="Minecraft"
+                             onerror="this.src='https://img.icons8.com/color/48/minecraft-logo.png'">
                         Minecraft
                     </div>
                 </div>
@@ -560,11 +651,71 @@
             if (script && script.url) window.location.href = script.url;
         }
 
+        const gameData = {
+            freefire: {
+                name: 'Free Fire',
+                icon: 'https://cdn.freefireinfo.net/wp-content/uploads/2021/03/free-fire-icon.png',
+                iconFallback: 'https://img.icons8.com/color/96/free-fire.png',
+                rows: [{ label: 'UID', value: '9148821686' }],
+                note: 'แอดมาได้นะครับ (รับมั้ง)'
+            },
+            roblox: {
+                name: 'Roblox',
+                icon: 'https://cdn2.iconfinder.com/data/icons/metro-ui-icon-set/512/Roblox.png',
+                iconFallback: 'https://img.icons8.com/ios-filled/96/roblox.png',
+                iconStyle: 'filter: grayscale(100%) brightness(1.1);',
+                rows: [{ label: 'ชื่อไอดี', value: 'GEXCEA' }],
+                note: 'ฝากกดติดตามด้วยนะครับ'
+            },
+            minecraft: {
+                name: 'Minecraft',
+                icon: 'https://cdn2.iconfinder.com/data/icons/metro-ui-icon-set/512/Minecraft.png',
+                iconFallback: 'https://img.icons8.com/color/96/minecraft-logo.png',
+                rows: [{ label: 'ชื่อไอดี', value: 'WEXCEA' }],
+                note: 'แอดมาได้ครับ (รับมั้ง)'
+            }
+        };
+
+        function openPopup(game) {
+            const data = gameData[game];
+            if (!data) return;
+            const img = document.getElementById('popupIcon');
+            img.src = data.icon;
+            img.style.cssText = data.iconStyle || '';
+            img.onerror = () => { img.src = data.iconFallback; img.onerror = null; };
+            document.getElementById('popupGameName').textContent = data.name;
+            let html = '';
+            data.rows.forEach(r => {
+                html += `<div class="popup-row"><span class="popup-label">${r.label}</span><span class="popup-value">${r.value}</span></div>`;
+            });
+            if (data.note) html += `<div class="popup-note">${data.note}</div>`;
+            document.getElementById('popupBody').innerHTML = html;
+            document.getElementById('popupOverlay').classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('active');
+        }
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+
         document.addEventListener('DOMContentLoaded', () => {
             initBackground();
             hideLoading();
             renderScripts(scripts);
         });
     </script>
+    <!-- Game popup modal -->
+    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()">
+        <div class="popup-card" onclick="event.stopPropagation()">
+            <button class="popup-close" onclick="closePopup()">✕</button>
+            <div class="popup-icon-wrap">
+                <img id="popupIcon" src="" alt="">
+            </div>
+            <div class="popup-game-name" id="popupGameName"></div>
+            <div class="popup-body" id="popupBody"></div>
+        </div>
+    </div>
+
 </body>
 </html>
