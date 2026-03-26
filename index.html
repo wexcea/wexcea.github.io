@@ -17,12 +17,12 @@
             --background-url: 'https://i.pinimg.com/1200x/10/77/61/107761414d06c715eaeaafae60f85025.jpg';
             --video-url: 'https://raw.githubusercontent.com/wexcea/rbx-scripts/main/assets/Background-video.mp4';
             --youtube-url: '';
-            
-            --primary-red: #ef4444;
-            --secondary-red: #dc2626;
-            --light-red: #f87171;
-            --dark-red: #b91c1c;
-            --accent-red: #e11d48;
+
+            --primary:   #9ca3af;
+            --secondary: #6b7280;
+            --light:     #e2e8f0;
+            --dark:      #374151;
+            --accent:    #cbd5e1;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -35,175 +35,151 @@
             position: relative;
         }
 
+        /* ── Background ─────────────────────────────── */
         .background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100vh;
+            z-index: -1; overflow: hidden;
         }
 
         .background-image, .background-video, .background-youtube {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
             filter: blur(var(--background-blur));
-            opacity: 0.3;
+            opacity: 0.25;
             display: none;
         }
 
         .background-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.2), rgba(0, 0, 0, 0.85));
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg,
+                rgba(148, 163, 184, 0.12),
+                rgba(71, 85, 105, 0.18),
+                rgba(0, 0, 0, 0.88));
         }
 
+        /* ── Loading screen ──────────────────────────── */
         .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, #450a0a, #7f1d1d, #991b1b);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
             z-index: 9999;
             transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
         }
 
-        .loading-dots {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
+        .loading-dots { display: flex; gap: 8px; margin-bottom: 20px; }
 
         .loading-dot {
-            width: 12px;
-            height: 12px;
-            background: var(--light-red);
+            width: 12px; height: 12px;
+            background: var(--light);
             border-radius: 50%;
             animation: dotPulse 1.5s ease-in-out infinite;
         }
-
-        .loading-dot:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .loading-dot:nth-child(3) {
-            animation-delay: 0.6s;
-        }
+        .loading-dot:nth-child(2) { animation-delay: 0.3s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.6s; }
 
         @keyframes dotPulse {
-            0%, 100% {
-                opacity: 0.3;
-                transform: scale(0.8);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.2);
-            }
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50%       { opacity: 1;   transform: scale(1.2); }
         }
 
         .loading-text {
             font-family: 'Space Grotesk', 'Noto Sans Thai', 'Sarabun', sans-serif;
             font-size: 18px;
-            color: var(--light-red);
+            color: var(--light);
             font-weight: 500;
             letter-spacing: 2px;
         }
 
         .loading-screen.hidden { opacity: 0; visibility: hidden; }
 
+        /* ── Layout ──────────────────────────────────── */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        .main-content { min-height: 100vh; padding: 60px 0; opacity: 0; animation: fadeInUp 1s ease-out 0.5s forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .main-content {
+            min-height: 100vh; padding: 60px 0;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
 
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Hero title ──────────────────────────────── */
         .hero-title {
             font-family: 'Outfit', 'Space Grotesk', 'Noto Sans Thai', sans-serif;
             text-align: center;
             font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 800;
-            background: linear-gradient(45deg, var(--dark-red), var(--primary-red), var(--light-red));
+            background: linear-gradient(45deg, var(--dark), var(--primary), var(--light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 15px;
-            text-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
             animation: glow 2s ease-in-out infinite alternate;
             letter-spacing: -2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            display: flex; align-items: center;
+            justify-content: center; gap: 8px; flex-wrap: wrap;
         }
 
         .hero-logo {
             width: clamp(60px, 10vw, 100px);
             height: clamp(60px, 10vw, 100px);
             border-radius: 50%;
-            border: 3px solid var(--light-red);
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+            border: 3px solid var(--light);
+            box-shadow: 0 0 20px rgba(203, 213, 225, 0.5);
             animation: glow 2s ease-in-out infinite alternate;
             object-fit: cover;
         }
 
-        @keyframes glow { from { filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.5)); } to { filter: drop-shadow(0 0 30px rgba(239, 68, 68, 0.8)); } }
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 18px rgba(148, 163, 184, 0.55)); }
+            to   { filter: drop-shadow(0 0 32px rgba(203, 213, 225, 0.85)); }
+        }
 
+        /* ── Social icons ────────────────────────────── */
         .social-links {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 15px;
-            margin-top: 0;
+            display: flex; justify-content: center; align-items: center;
+            gap: 30px; margin-bottom: 15px; margin-top: 0;
         }
 
         .social-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 2px solid rgba(239, 68, 68, 0.3);
+            width: 50px; height: 50px;
+            background: rgba(148, 163, 184, 0.08);
+            border: 2px solid rgba(148, 163, 184, 0.28);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
+            cursor: pointer; text-decoration: none;
         }
 
         .social-icon:hover {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: var(--light-red);
+            background: rgba(148, 163, 184, 0.18);
+            border-color: var(--light);
             transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 5px 20px rgba(148, 163, 184, 0.35);
         }
 
         .social-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--light-red);
+            width: 24px; height: 24px;
+            fill: var(--light);
         }
 
+        /* ── Search ──────────────────────────────────── */
         .search-container {
-            max-width: 700px;
-            margin: 15px auto 15px;
+            max-width: 700px; margin: 15px auto 15px;
             position: relative;
         }
 
         .search-box {
             width: 100%;
-            background: rgba(239, 68, 68, 0.05);
+            background: rgba(148, 163, 184, 0.06);
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(239, 68, 68, 0.25);
+            border: 2px solid rgba(148, 163, 184, 0.22);
             border-radius: 50px;
             padding: 18px 60px 18px 25px;
             font-family: 'Inter', 'Noto Sans Thai', 'Sarabun', sans-serif;
@@ -213,234 +189,162 @@
             transition: all 0.3s ease;
         }
 
-        .search-box::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
+        .search-box::placeholder { color: rgba(255, 255, 255, 0.4); }
 
         .search-box:focus {
-            border-color: var(--light-red);
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+            border-color: var(--light);
+            box-shadow: 0 0 22px rgba(148, 163, 184, 0.28);
         }
 
         .search-icon {
-            position: absolute;
-            right: 25px;
-            top: 50%;
+            position: absolute; right: 25px; top: 50%;
             transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             pointer-events: none;
         }
 
-        .search-icon svg {
-            width: 100%;
-            height: 100%;
-            fill: var(--light-red);
-        }
+        .search-icon svg { width: 100%; height: 100%; fill: var(--primary); }
 
+        /* ── Script grid ─────────────────────────────── */
         .scripts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            gap: 25px; margin-top: 30px;
         }
 
         .script-card {
-            background: rgba(239, 68, 68, 0.05);
+            background: rgba(148, 163, 184, 0.06);
             backdrop-filter: blur(20px);
             border-radius: 15px;
-            border: 1px solid rgba(239, 68, 68, 0.25);
+            border: 1px solid rgba(148, 163, 184, 0.20);
             padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            display: flex; align-items: center; gap: 15px;
             transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer; position: relative; overflow: hidden;
         }
 
         .script-card::before {
             content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(203, 213, 225, 0.08), transparent);
             transition: left 0.5s ease;
         }
 
-        .script-card:hover::before {
-            left: 100%;
-        }
+        .script-card:hover::before { left: 100%; }
 
         .script-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
-            border-color: var(--light-red);
+            box-shadow: 0 10px 32px rgba(148, 163, 184, 0.22);
+            border-color: var(--light);
+            background: rgba(148, 163, 184, 0.10);
         }
 
         .script-logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 15px;
-            object-fit: cover;
-            border: 2px solid rgba(239, 68, 68, 0.3);
-            flex-shrink: 0;
-            transition: all 0.3s ease;
+            width: 70px; height: 70px;
+            border-radius: 15px; object-fit: cover;
+            border: 2px solid rgba(148, 163, 184, 0.28);
+            flex-shrink: 0; transition: all 0.3s ease;
         }
 
         .script-card:hover .script-logo {
-            border-color: var(--light-red);
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+            border-color: var(--light);
+            box-shadow: 0 0 16px rgba(203, 213, 225, 0.45);
         }
 
-        .script-info {
-            flex: 1;
-            min-width: 0;
-        }
+        .script-info { flex: 1; min-width: 0; }
 
         .script-name {
             font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--light-red);
+            font-size: 1.1rem; font-weight: 600;
+            color: var(--light);
             margin-bottom: 5px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
 
         .script-description {
             font-family: 'Inter', 'Noto Sans Thai', sans-serif;
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            color: rgba(255, 255, 255, 0.55);
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
 
+        /* ── Arrow button ────────────────────────────── */
         .arrow-button {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(45deg, var(--dark-red), var(--primary-red));
-            border: none;
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--dark), var(--secondary));
+            border: 1px solid rgba(148, 163, 184, 0.35);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(148, 163, 184, 0.25);
+            flex-shrink: 0; position: relative; overflow: hidden;
         }
 
         .arrow-button::before {
             content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transition: left 0.5s ease;
         }
 
-        .arrow-button:hover::before {
-            left: 100%;
-        }
+        .arrow-button:hover::before { left: 100%; }
 
         .arrow-button svg {
-            width: 20px;
-            height: 20px;
-            fill: white;
-            transition: transform 0.3s ease;
+            width: 20px; height: 20px;
+            fill: white; transition: transform 0.3s ease;
         }
 
         .arrow-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            box-shadow: 0 6px 26px rgba(148, 163, 184, 0.45);
         }
 
-        .arrow-button:hover svg {
-            transform: translateX(3px);
-        }
+        .arrow-button:hover svg { transform: translateX(3px); }
+        .arrow-button:active   { transform: scale(1.05); }
 
-        .arrow-button:active {
-            transform: scale(1.05);
-        }
-
+        /* ── No results ──────────────────────────────── */
         .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: rgba(255, 255, 255, 0.5);
+            text-align: center; padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.4);
             font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
             font-size: 1.2rem;
         }
 
-        /* Responsive */
+        /* ── Responsive ──────────────────────────────── */
         @media (max-width: 768px) {
-            .container { padding: 0 15px; }
+            .container    { padding: 0 15px; }
             .main-content { padding: 40px 0; }
-            .social-icon {
-                width: 45px;
-                height: 45px;
-            }
-            .social-icon svg {
-                width: 20px;
-                height: 20px;
-            }
-            .scripts-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .script-card {
-                padding: 15px;
-            }
-            .script-logo {
-                width: 60px;
-                height: 60px;
-                border-radius: 12px;
-            }
-            .script-name {
-                font-size: 0.95rem;
-            }
-            .script-description {
-                font-size: 0.75rem;
-            }
-            .arrow-button {
-                width: 40px;
-                height: 40px;
-            }
-            .arrow-button svg {
-                width: 18px;
-                height: 18px;
-            }
-            .search-box {
-                padding: 15px 50px 15px 20px;
-                font-size: 14px;
-            }
-            .search-icon {
-                width: 20px;
-                height: 20px;
-                right: 20px;
-            }
+            .social-icon  { width: 45px; height: 45px; }
+            .social-icon svg { width: 20px; height: 20px; }
+            .scripts-grid { grid-template-columns: 1fr; gap: 20px; }
+            .script-card  { padding: 15px; }
+            .script-logo  { width: 60px; height: 60px; border-radius: 12px; }
+            .script-name  { font-size: 0.95rem; }
+            .script-description { font-size: 0.75rem; }
+            .arrow-button { width: 40px; height: 40px; }
+            .arrow-button svg { width: 18px; height: 18px; }
+            .search-box   { padding: 15px 50px 15px 20px; font-size: 14px; }
+            .search-icon  { width: 20px; height: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Background -->
     <div class="background-container">
         <img id="backgroundImage" class="background-image" src="" alt="Background">
         <video id="backgroundVideo" class="background-video" autoplay muted loop playsinline>
             <source src="" type="video/mp4">
         </video>
-        <iframe id="backgroundYoutube" class="background-youtube" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe id="backgroundYoutube" class="background-youtube" src="" frameborder="0"
+            allow="autoplay; encrypted-media" allowfullscreen></iframe>
         <div class="background-overlay"></div>
     </div>
 
+    <!-- Loading screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-dots">
             <div class="loading-dot"></div>
@@ -450,13 +354,16 @@
         <div class="loading-text">Loading...</div>
     </div>
 
+    <!-- Main content -->
     <div class="main-content">
         <div class="container">
+
             <h1 class="hero-title">
-                <img src="https://raw.githubusercontent.com/wexcea/rbx-scripts/refs/heads/main/assets/Logo-Tittle.png" alt="Wexcea Logo" class="hero-logo">
+                <img src="https://raw.githubusercontent.com/wexcea/rbx-scripts/refs/heads/main/assets/Logo-Tittle.png"
+                     alt="Wexcea Logo" class="hero-logo">
                 Wexcea
             </h1>
-            
+
             <div class="social-links">
                 <a href="https://www.tiktok.com/@gexcea?_r=1&_t=ZS-91PMPKPiMNu" target="_blank" class="social-icon" title="TikTok">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -479,18 +386,13 @@
                 </div>
             </div>
 
-            <div class="scripts-grid" id="scriptsGrid">
-                <!-- Script cards will be dynamically inserted here -->
-            </div>
+            <div class="scripts-grid" id="scriptsGrid"></div>
+            <div class="no-results" id="noResults" style="display: none;">No scripts found</div>
 
-            <div class="no-results" id="noResults" style="display: none;">
-                No scripts found
-            </div>
         </div>
     </div>
 
     <script>
-        // Sample script data
         const scripts = [
             {
                 id: 3,
@@ -518,7 +420,6 @@
         function getYouTubeEmbedUrl(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
-            
             if (match && match[2].length === 11) {
                 return `https://www.youtube.com/embed/${match[2]}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playlist=${match[2]}`;
             }
@@ -526,65 +427,55 @@
         }
 
         function initBackground() {
-            const backgroundType = getComputedStyle(document.documentElement).getPropertyValue('--background-type').replace(/['"]/g, '');
-            const backgroundUrl = getComputedStyle(document.documentElement).getPropertyValue('--background-url').replace(/['"]/g, '');
-            const videoUrl = getComputedStyle(document.documentElement).getPropertyValue('--video-url').replace(/['"]/g, '');
-            const youtubeUrl = getComputedStyle(document.documentElement).getPropertyValue('--youtube-url').replace(/['"]/g, '');            
-            setBackground(backgroundType, backgroundType === 'youtube' ? youtubeUrl : backgroundType === 'video' ? videoUrl : backgroundUrl);
+            const style = getComputedStyle(document.documentElement);
+            const backgroundType = style.getPropertyValue('--background-type').replace(/['"]/g, '');
+            const backgroundUrl  = style.getPropertyValue('--background-url').replace(/['"]/g, '');
+            const videoUrl       = style.getPropertyValue('--video-url').replace(/['"]/g, '');
+            const youtubeUrl     = style.getPropertyValue('--youtube-url').replace(/['"]/g, '');
+            setBackground(
+                backgroundType,
+                backgroundType === 'youtube' ? youtubeUrl :
+                backgroundType === 'video'   ? videoUrl   : backgroundUrl
+            );
         }
 
         function setBackground(type, url) {
-            const backgroundImage = document.getElementById('backgroundImage');
-            const backgroundVideo = document.getElementById('backgroundVideo');
-            const backgroundYoutube = document.getElementById('backgroundYoutube');
-            backgroundImage.style.display = 'none';
-            backgroundVideo.style.display = 'none';
-            backgroundYoutube.style.display = 'none';
+            const img = document.getElementById('backgroundImage');
+            const vid = document.getElementById('backgroundVideo');
+            const yt  = document.getElementById('backgroundYoutube');
+            img.style.display = 'none';
+            vid.style.display = 'none';
+            yt.style.display  = 'none';
             if (type === 'youtube') {
                 const embedUrl = getYouTubeEmbedUrl(url);
-                if (embedUrl) {
-                    backgroundYoutube.style.display = 'block';
-                    backgroundYoutube.src = embedUrl;
-                } else {
-                    backgroundImage.style.display = 'block';
-                    backgroundImage.src = getComputedStyle(document.documentElement).getPropertyValue('--background-url').replace(/['"]/g, '');
-                }
+                if (embedUrl) { yt.style.display = 'block'; yt.src = embedUrl; }
+                else { img.style.display = 'block'; img.src = getComputedStyle(document.documentElement).getPropertyValue('--background-url').replace(/['"]/g, ''); }
             } else if (type === 'video') {
-                backgroundVideo.style.display = 'block';
-                backgroundVideo.src = url;
-                backgroundVideo.loop = true;
-                backgroundVideo.muted = true;
-                backgroundVideo.autoplay = true;
-                backgroundVideo.playsInline = true;                
+                vid.style.display = 'block';
+                vid.src = url; vid.loop = true; vid.muted = true; vid.autoplay = true; vid.playsInline = true;
             } else {
-                backgroundImage.style.display = 'block';
-                backgroundImage.src = url;
+                img.style.display = 'block'; img.src = url;
             }
         }
 
         function hideLoading() {
             setTimeout(() => {
-                const loadingScreen = document.getElementById('loadingScreen');
-                loadingScreen.classList.add('hidden');
+                document.getElementById('loadingScreen').classList.add('hidden');
             }, 2000);
         }
 
-        function renderScripts(scriptsToRender) {
-            const scriptsGrid = document.getElementById('scriptsGrid');
+        function renderScripts(list) {
+            const grid      = document.getElementById('scriptsGrid');
             const noResults = document.getElementById('noResults');
-            
-            scriptsGrid.innerHTML = '';
-            
-            if (scriptsToRender.length === 0) {
-                scriptsGrid.style.display = 'none';
+            grid.innerHTML  = '';
+            if (list.length === 0) {
+                grid.style.display = 'none';
                 noResults.style.display = 'block';
                 return;
             }
-            
-            scriptsGrid.style.display = 'grid';
+            grid.style.display = 'grid';
             noResults.style.display = 'none';
-            
-            scriptsToRender.forEach(script => {
+            list.forEach(script => {
                 const card = document.createElement('div');
                 card.className = 'script-card';
                 card.innerHTML = `
@@ -599,34 +490,29 @@
                         </svg>
                     </button>
                 `;
-                scriptsGrid.appendChild(card);
+                grid.appendChild(card);
             });
         }
 
         function viewScript(id) {
             const script = scripts.find(s => s.id === id);
-            if (script && script.url) {
-                window.location.href = script.url;
-            }
+            if (script && script.url) window.location.href = script.url;
         }
 
         function handleSearch(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredScripts = scripts.filter(script => 
-                script.name.toLowerCase().includes(searchTerm) || 
-                script.description.toLowerCase().includes(searchTerm)
-            );
-            renderScripts(filteredScripts);
+            const term = e.target.value.toLowerCase();
+            renderScripts(scripts.filter(s =>
+                s.name.toLowerCase().includes(term) ||
+                s.description.toLowerCase().includes(term)
+            ));
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             initBackground();
             hideLoading();
             renderScripts(scripts);
-            
-            const searchBox = document.getElementById('searchBox');
-            searchBox.addEventListener('input', handleSearch);
+            document.getElementById('searchBox').addEventListener('input', handleSearch);
         });
     </script>
 </body>
-        </html>
+</html>
