@@ -617,6 +617,68 @@
             text-align: center;
             margin-top: 6px;
         }
+
+        /* ── Ads Section ─────────────────────────────── */
+        .ads-section {
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+
+        .ads-header {
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.38);
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            padding-left: 2px;
+        }
+
+        .ads-header a {
+            color: var(--primary);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s ease;
+        }
+
+        .ads-header a:hover { color: var(--light); }
+
+        .ads-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .ads-card {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            background: rgba(148, 163, 184, 0.05);
+            display: block;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .ads-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 28px rgba(148, 163, 184, 0.18);
+            border-color: rgba(148, 163, 184, 0.38);
+        }
+
+        .ads-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .ads-grid { gap: 10px; }
+            .ads-card { border-radius: 12px; }
+            .ads-card img { border-radius: 11px; }
+        }
     </style>
 </head>
 <body>
@@ -677,6 +739,14 @@
 
             <div class="scripts-grid" id="scriptsGrid"></div>
             <div class="no-results" id="noResults" style="display: none;">ไม่พบรายการ</div>
+
+            <!-- Ads Section -->
+            <div class="ads-section">
+                <div class="ads-header">
+                    // ช่วงโฆษณา - สนใจลงโฆษณา <a href="https://www.facebook.com/share/1BXBtiJiDF/" target="_blank">ทักหาเราเลย</a>
+                </div>
+                <div class="ads-grid" id="adsGrid"></div>
+            </div>
 
         </div>
     </div>
@@ -788,6 +858,30 @@
             if (script && script.url) window.location.href = script.url;
         }
 
+        /* ── Ads logic ───────────────────────────────── */
+        const adsData = [
+            { id: 1, img: 'https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/All-ads/ads-01.png', url: 'https://www.facebook.com/share/1BXBtiJiDF/' },
+            { id: 2, img: 'https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/All-ads/ads-02.png', url: 'https://www.facebook.com/share/1BXBtiJiDF/' },
+            { id: 3, img: 'https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/All-ads/ads-03.png', url: 'https://www.facebook.com/share/1BXBtiJiDF/' },
+            { id: 4, img: 'https://raw.githubusercontent.com/wexcea/wexcea.github.io/refs/heads/main/assets/All-ads/ads-04.png', url: 'https://www.facebook.com/share/1BXBtiJiDF/' },
+        ];
+
+        function renderAds() {
+            const grid = document.getElementById('adsGrid');
+            const shuffled = [...adsData].sort(() => Math.random() - 0.5);
+            const picked = [shuffled[0], shuffled[1]];
+            grid.innerHTML = '';
+            picked.forEach(ad => {
+                const a = document.createElement('a');
+                a.href = ad.url;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.className = 'ads-card';
+                a.innerHTML = `<img src="${ad.img}" alt="Advertisement">`;
+                grid.appendChild(a);
+            });
+        }
+
         const gameData = {
             freefire: {
                 name: 'Free Fire',
@@ -886,6 +980,7 @@
                     // โชว์หน้าเว็บก่อน 2 วิ แล้วค่อย fade overlay
                     hideLoading();
                     renderScripts(scripts);
+                    renderAds();
                     setTimeout(() => {
                         document.getElementById('tiktokWarning').classList.add('active');
                         document.getElementById('tkArrow').classList.add('visible');
@@ -893,6 +988,7 @@
                 } else {
                     hideLoading();
                     renderScripts(scripts);
+                    renderAds();
                 }
             }, 600);
         });
