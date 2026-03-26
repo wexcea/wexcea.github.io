@@ -977,14 +977,14 @@
             initBackground();
             setTimeout(() => {
                 if (isTikTok()) {
-                    // โชว์หน้าเว็บก่อน 2 วิ แล้วค่อย fade overlay
+                    // โชว์หน้าเว็บก่อน 1 วิ แล้วค่อย fade overlay
                     hideLoading();
                     renderScripts(scripts);
                     renderAds();
                     setTimeout(() => {
                         document.getElementById('tiktokWarning').classList.add('active');
                         document.getElementById('tkArrow').classList.add('visible');
-                    }, 2000);
+                    }, 1000);
                 } else {
                     hideLoading();
                     renderScripts(scripts);
