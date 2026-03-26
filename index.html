@@ -483,14 +483,14 @@
         /* ── TikTok step popup ───────────────────────── */
         .tiktok-warning {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.35);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            background: rgba(0,0,0,0.50);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             z-index: 99999;
             display: flex; align-items: center; justify-content: center;
             padding: 16px;
             opacity: 0; visibility: hidden;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
             pointer-events: none;
         }
         .tiktok-warning.active {
@@ -501,14 +501,14 @@
         /* ลูกศรแดงชี้มุมขวาบน — independent fixed */
         .tk-arrow {
             position: fixed;
-            top: 52px;
-            right: 6px;
+            top: 36px;
+            right: 10px;
             z-index: 100001;
             display: none;
             align-items: center;
             justify-content: flex-end;
             gap: 10px;
-            animation: arrowBounce 0.7s ease-in-out infinite alternate;
+            animation: arrowBounce 0.65s ease-in-out infinite alternate;
             pointer-events: none;
             max-width: calc(100vw - 16px);
         }
@@ -516,26 +516,26 @@
 
         .tk-arrow-text {
             font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 700;
             color: #ffffff;
             text-align: right;
             line-height: 1.55;
-            background: rgba(0,0,0,0.82);
-            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.88);
+            border: 1px solid rgba(255,255,255,0.18);
             padding: 8px 12px;
             border-radius: 10px;
             flex-shrink: 1;
         }
 
         .tk-arrow svg {
-            width: 60px; height: 60px;
+            width: 52px; height: 80px;
             filter: drop-shadow(0 0 10px rgba(239,68,68,1));
             flex-shrink: 0;
         }
 
         @keyframes arrowBounce {
-            from { transform: translateY(0px); }
+            from { transform: translateY(2px); }
             to   { transform: translateY(-12px); }
         }
 
@@ -883,8 +883,13 @@
             initBackground();
             setTimeout(() => {
                 if (isTikTok()) {
-                    document.getElementById('tiktokWarning').classList.add('active');
-                    document.getElementById('tkArrow').classList.add('visible');
+                    // โชว์หน้าเว็บก่อน 2 วิ แล้วค่อย fade overlay
+                    hideLoading();
+                    renderScripts(scripts);
+                    setTimeout(() => {
+                        document.getElementById('tiktokWarning').classList.add('active');
+                        document.getElementById('tkArrow').classList.add('visible');
+                    }, 2000);
                 } else {
                     hideLoading();
                     renderScripts(scripts);
@@ -909,8 +914,8 @@
             กดแถวๆ นี้ครับผม<br>
             <span style="font-weight:500;font-size:0.72rem;opacity:0.75;">(โหมดมืดลองกดมั่วๆ เผื่อเจอ)</span>
         </div>
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 20V4M12 4L5 11M12 4L19 11" stroke="#ef4444" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg viewBox="0 0 20 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 46 L10 6 M10 6 L3 16 M10 6 L17 16" stroke="#ef4444" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
 
