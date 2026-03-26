@@ -823,9 +823,7 @@
             const isFirefox = /Firefox\//.test(ua);
             const isEdge    = /Edg\//.test(ua);
             const isSafari  = /Safari\//.test(ua) && !/Chrome\//.test(ua);
-            // Allow WebView only if it's wrapping a known supported engine
-            const isAndroidWebView = /wv/.test(ua) && /Android/.test(ua);
-            const isInAppBrowser = /FBAN|FBAV|Instagram|Line|Twitter|Snapchat|TikTok|MicroMessenger/.test(ua);
+            const isInAppBrowser = /FBAN|FBAV|Instagram|Line|Twitter|Snapchat|MicroMessenger|TikTok|trill|musical_ly|BytedanceWebview|ByteLocale|Bytedance/.test(ua);
             if (isInAppBrowser) return false;
             return isChrome || isFirefox || isEdge || isSafari;
         }
