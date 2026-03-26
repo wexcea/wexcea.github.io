@@ -498,28 +498,28 @@
             pointer-events: all;
         }
 
-        /* ลูกศรแดงชี้มุมขวาบน */
+        /* ลูกศรแดงชี้มุมขวาบน — independent fixed */
         .tk-arrow {
             position: fixed;
-            top: 18px;
-            right: 58px;
-            z-index: 100000;
+            top: 10px;
+            right: 52px;
+            z-index: 100001;
             display: none;
-            flex-direction: column;
             align-items: center;
-            gap: 0;
-            animation: arrowBounce 0.8s ease-in-out infinite alternate;
+            justify-content: center;
+            animation: arrowBounce 0.7s ease-in-out infinite alternate;
+            pointer-events: none;
         }
-        .tiktok-warning.active .tk-arrow { display: flex; }
+        .tk-arrow.visible { display: flex; }
 
         .tk-arrow svg {
-            width: 38px; height: 38px;
-            filter: drop-shadow(0 0 6px rgba(239,68,68,0.8));
+            width: 42px; height: 42px;
+            filter: drop-shadow(0 0 8px rgba(239,68,68,0.9));
         }
 
         @keyframes arrowBounce {
-            from { transform: translateY(0); }
-            to   { transform: translateY(-10px); }
+            from { transform: translateY(4px); }
+            to   { transform: translateY(-8px); }
         }
 
         .tk-card {
@@ -867,6 +867,7 @@
             setTimeout(() => {
                 if (isTikTok()) {
                     document.getElementById('tiktokWarning').classList.add('active');
+                    document.getElementById('tkArrow').classList.add('visible');
                 } else {
                     hideLoading();
                     renderScripts(scripts);
@@ -885,14 +886,15 @@
             <div class="popup-body" id="popupBody"></div>
         </div>
     </div>
+    <!-- ลูกศรแดงชี้ปุ่ม ··· แยกออกมาเป็น fixed element -->
+    <div class="tk-arrow" id="tkArrow">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 20V4M12 4L5 11M12 4L19 11" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
     <!-- TikTok step-by-step popup -->
     <div class="tiktok-warning" id="tiktokWarning">
-        <!-- ลูกศรแดงชี้ปุ่ม ··· มุมขวาบน -->
-        <div class="tk-arrow">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 20V4M12 4L5 11M12 4L19 11" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
         <div class="tk-card">
             <div class="tk-header">
                 <div class="tk-tiktok-icon">
