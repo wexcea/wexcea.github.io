@@ -120,7 +120,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0;
-            padding-top: 20px;
             animation: glow 2s ease-in-out infinite alternate;
             letter-spacing: -2px;
             display: flex; align-items: center;
@@ -140,6 +139,70 @@
         @keyframes glow {
             from { filter: drop-shadow(0 0 18px rgba(148, 163, 184, 0.55)); }
             to   { filter: drop-shadow(0 0 32px rgba(203, 213, 225, 0.85)); }
+        }
+
+        /* ── Hero wrapper ────────────────────────────── */
+        .hero-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding-top: 20px;
+            margin-bottom: 0;
+        }
+
+        /* ── Game badges row ─────────────────────────── */
+        .game-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+
+        .game-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(148, 163, 184, 0.08);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            border-radius: 10px;
+            font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--light);
+            cursor: default;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .game-badge:hover {
+            background: rgba(148, 163, 184, 0.15);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(148, 163, 184, 0.2);
+        }
+
+        .game-badge img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: grayscale(30%) brightness(0.9);
+        }
+
+        @media (max-width: 400px) {
+            .game-badge {
+                padding: 5px 9px;
+                font-size: 0.72rem;
+                gap: 5px;
+            }
+            .game-badge img {
+                width: 15px;
+                height: 15px;
+            }
+            .game-badges { gap: 6px; }
         }
 
         /* ── Social icons ────────────────────────────── */
@@ -359,11 +422,28 @@
     <div class="main-content">
         <div class="container">
 
-            <h1 class="hero-title">
-                <img src="https://raw.githubusercontent.com/wexcea/rbx-scripts/refs/heads/main/assets/Logo-Tittle.png"
-                     alt="Wexcea Logo" class="hero-logo">
-                Wexcea
-            </h1>
+            <div class="hero-wrapper">
+                <h1 class="hero-title">
+                    <img src="https://raw.githubusercontent.com/wexcea/rbx-scripts/refs/heads/main/assets/Logo-Tittle.png"
+                         alt="Wexcea Logo" class="hero-logo">
+                    Wexcea
+                </h1>
+
+                <div class="game-badges">
+                    <div class="game-badge">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/31/Free_Fire_Logo.png/220px-Free_Fire_Logo.png" alt="Free Fire">
+                        Free Fire
+                    </div>
+                    <div class="game-badge">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Roblox_player_icon_black.svg/1200px-Roblox_player_icon_black.svg.png" alt="Roblox" style="filter: grayscale(100%) invert(1) brightness(0.75);">
+                        Roblox
+                    </div>
+                    <div class="game-badge">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png" alt="Minecraft">
+                        Minecraft
+                    </div>
+                </div>
+            </div>
 
             <div style="margin-top: 40px;"></div>
 
