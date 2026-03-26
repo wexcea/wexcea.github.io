@@ -480,175 +480,75 @@
             color: rgba(255,255,255,0.55);
             margin-top: 8px;
         }
-        /* ── Browser warning overlay ─────────────────── */
-        .browser-warning {
-            position: fixed; inset: 0;
-            background: #0a0a0a;
-            z-index: 99999;
-            display: flex; align-items: center; justify-content: center;
-            padding: 20px;
-            opacity: 0; visibility: hidden;
-            transition: opacity 0.4s ease;
-        }
-        .browser-warning.active { opacity: 1; visibility: visible; }
-
-        .bw-card {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 20px;
-            width: min(400px, 94vw);
-            overflow: hidden;
-            box-shadow: 0 24px 80px rgba(0,0,0,0.7);
-            border: 1px solid rgba(148,163,184,0.15);
-        }
-
-        .bw-header {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border-bottom: 1px solid rgba(220,38,38,0.35);
-            padding: 20px 22px 16px;
-        }
-        .bw-header-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem; font-weight: 700;
-            color: #f87171;
-            margin-bottom: 6px;
-        }
-        .bw-header-sub {
-            font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
-            font-size: 0.82rem;
-            color: rgba(255,255,255,0.5);
-            line-height: 1.5;
-        }
-
-        .bw-body { padding: 20px 22px; }
-
-        .bw-instruction {
-            font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.65);
-            margin-bottom: 14px;
-            line-height: 1.6;
-        }
-
-        .bw-url-box {
-            display: flex; align-items: center; justify-content: space-between;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(148,163,184,0.2);
-            border-radius: 10px;
-            padding: 12px 14px;
-            margin-bottom: 16px;
-            gap: 10px;
-        }
-        .bw-url-text {
-            font-family: 'Space Grotesk', monospace;
-            font-size: 0.82rem;
-            color: var(--light);
-            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-        }
-        .bw-copy-btn {
-            background: rgba(148,163,184,0.1);
-            border: 1px solid rgba(148,163,184,0.25);
-            border-radius: 7px;
-            padding: 5px 10px;
-            color: var(--primary);
-            font-size: 0.75rem;
-            font-family: 'Space Grotesk', sans-serif;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-        .bw-copy-btn:hover { background: rgba(148,163,184,0.2); color: var(--light); }
-        .bw-copy-btn.copied { color: #86efac; border-color: rgba(134,239,172,0.4); }
-
-        .bw-browsers {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 10px; margin-bottom: 16px;
-        }
-        .bw-browser-btn {
-            display: flex; flex-direction: column; align-items: center;
-            gap: 8px; padding: 14px 10px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(148,163,184,0.18);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-        .bw-browser-btn:hover {
-            background: rgba(148,163,184,0.1);
-            border-color: rgba(148,163,184,0.35);
-            transform: translateY(-2px);
-        }
-        .bw-browser-btn img { width: 38px; height: 38px; object-fit: contain; }
-        .bw-browser-btn span {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.82rem; font-weight: 500;
-            color: rgba(255,255,255,0.75);
-        }
-
-        .bw-note {
-            background: rgba(234,179,8,0.08);
-            border: 1px solid rgba(234,179,8,0.25);
-            border-radius: 10px;
-            padding: 11px 14px;
-            font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.6);
-            line-height: 1.55;
-        }
-        .bw-note b { color: #fbbf24; }
         /* ── TikTok step popup ───────────────────────── */
         .tiktok-warning {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.45);
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             z-index: 99999;
             display: flex; align-items: center; justify-content: center;
-            padding: 20px;
+            padding: 16px;
             opacity: 0; visibility: hidden;
             transition: opacity 0.4s ease;
-            /* ล็อกไม่ให้กดพื้นหลัง */
             pointer-events: none;
         }
         .tiktok-warning.active {
             opacity: 1; visibility: visible;
             pointer-events: all;
         }
-        /* บังไม่ให้คลิกทะลุ overlay ไปถึงหน้าเว็บ */
-        .tiktok-warning.active::before {
-            content: '';
-            position: absolute; inset: 0;
-            z-index: -1;
+
+        /* ลูกศรแดงชี้มุมขวาบน */
+        .tk-arrow {
+            position: fixed;
+            top: 18px;
+            right: 58px;
+            z-index: 100000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            animation: arrowBounce 0.8s ease-in-out infinite alternate;
+        }
+        .tiktok-warning.active .tk-arrow { display: flex; }
+
+        .tk-arrow svg {
+            width: 38px; height: 38px;
+            filter: drop-shadow(0 0 6px rgba(239,68,68,0.8));
+        }
+
+        @keyframes arrowBounce {
+            from { transform: translateY(0); }
+            to   { transform: translateY(-10px); }
         }
 
         .tk-card {
-            background: rgba(30, 30, 32, 0.72);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            background: rgba(28, 28, 30, 0.78);
+            backdrop-filter: blur(28px) saturate(160%);
+            -webkit-backdrop-filter: blur(28px) saturate(160%);
             border-radius: 22px;
-            width: min(380px, 94vw);
-            max-height: 88vh;
+            width: min(370px, 92vw);
+            max-height: 86vh;
             overflow-y: auto;
-            box-shadow: 0 28px 80px rgba(0,0,0,0.55);
-            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 24px 70px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.13);
         }
-        /* scrollbar เล็กๆ */
         .tk-card::-webkit-scrollbar { width: 4px; }
         .tk-card::-webkit-scrollbar-track { background: transparent; }
         .tk-card::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
 
         .tk-header {
-            padding: 22px 22px 14px;
+            padding: 20px 20px 14px;
             border-bottom: 1px solid rgba(255,255,255,0.08);
             display: flex; align-items: center; gap: 12px;
         }
         .tk-tiktok-icon {
-            width: 42px; height: 42px; flex-shrink: 0;
+            width: 44px; height: 44px; flex-shrink: 0;
             border-radius: 12px; overflow: hidden;
             background: #000;
             display: flex; align-items: center; justify-content: center;
         }
         .tk-tiktok-icon img { width: 28px; height: 28px; object-fit: contain; }
-        .tk-header-text {}
         .tk-header-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1rem; font-weight: 700;
@@ -660,16 +560,15 @@
             line-height: 1.4;
         }
 
-        .tk-body { padding: 18px 22px 22px; }
+        .tk-body { padding: 16px 20px 20px; }
 
         .tk-desc {
             font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
             font-size: 0.87rem; color: rgba(255,255,255,0.6);
-            margin-bottom: 16px; line-height: 1.65;
+            margin-bottom: 14px; line-height: 1.65;
         }
 
         .tk-steps { display: flex; flex-direction: column; gap: 14px; }
-
         .tk-step { display: flex; gap: 12px; align-items: flex-start; }
 
         .tk-step-num {
@@ -680,8 +579,7 @@
             display: flex; align-items: center; justify-content: center;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 0.78rem; font-weight: 700;
-            color: var(--light);
-            margin-top: 2px;
+            color: var(--light); margin-top: 2px;
         }
 
         .tk-step-content { flex: 1; }
@@ -967,12 +865,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             initBackground();
             setTimeout(() => {
-                if (!isSupportedBrowser()) {
-                    if (isTikTok()) {
-                        document.getElementById('tiktokWarning').classList.add('active');
-                    } else {
-                        document.getElementById('browserWarning').classList.add('active');
-                    }
+                if (isTikTok()) {
+                    document.getElementById('tiktokWarning').classList.add('active');
                 } else {
                     hideLoading();
                     renderScripts(scripts);
@@ -991,43 +885,14 @@
             <div class="popup-body" id="popupBody"></div>
         </div>
     </div>
-    <!-- Browser warning -->
-    <div class="browser-warning" id="browserWarning">
-        <div class="bw-card">
-            <div class="bw-header">
-                <div class="bw-header-title">พบบราวเซอร์ที่ไม่รองรับ</div>
-                <div class="bw-header-sub">เราแนะนำให้ใช้บราวเซอร์ที่รองรับเพื่อประสบการณ์ที่ดีที่สุด</div>
-            </div>
-            <div class="bw-body">
-                <div class="bw-instruction">กรุณาคลิ๊กนำลิ้งค์ด้านล่างไปเปิดในบราวเซอร์ที่รองรับ</div>
-                <div class="bw-url-box">
-                    <span class="bw-url-text">https://wexcea.github.io/</span>
-                    <button class="bw-copy-btn" id="bwCopyBtn" onclick="copyUrl()">คัดลอก</button>
-                </div>
-                <div class="bw-browsers">
-                    <a class="bw-browser-btn" href="googlechrome://navigate?url=https://wexcea.github.io/" onclick="return openBrowser('chrome')">
-                        <img src="https://cdn.jsdelivr.net/gh/alrra/browser-logos/src/chrome/chrome_64x64.png" alt="Chrome">
-                        <span>Chrome</span>
-                    </a>
-                    <a class="bw-browser-btn" href="firefox://open-url?url=https://wexcea.github.io/" onclick="return openBrowser('firefox')">
-                        <img src="https://cdn.jsdelivr.net/gh/alrra/browser-logos/src/firefox/firefox_64x64.png" alt="Firefox">
-                        <span>Firefox</span>
-                    </a>
-                    <a class="bw-browser-btn" href="microsoft-edge://https://wexcea.github.io/" onclick="return openBrowser('edge')">
-                        <img src="https://cdn.jsdelivr.net/gh/alrra/browser-logos/src/edge/edge_64x64.png" alt="Edge">
-                        <span>Edge</span>
-                    </a>
-                    <a class="bw-browser-btn" href="x-safari-https://wexcea.github.io/" onclick="return openBrowser('safari')">
-                        <img src="https://cdn.jsdelivr.net/gh/alrra/browser-logos/src/safari/safari_64x64.png" alt="Safari">
-                        <span>Safari</span>
-                    </a>
-                </div>
-                <div class="bw-note"><b>Note:</b> หากต้องการใช้งานต่อ โปรดใช้บราวเซอร์ที่รองรับเพื่อประสบการณ์ที่ดีที่สุด</div>
-            </div>
-        </div>
-    </div>
     <!-- TikTok step-by-step popup -->
     <div class="tiktok-warning" id="tiktokWarning">
+        <!-- ลูกศรแดงชี้ปุ่ม ··· มุมขวาบน -->
+        <div class="tk-arrow">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 20V4M12 4L5 11M12 4L19 11" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
         <div class="tk-card">
             <div class="tk-header">
                 <div class="tk-tiktok-icon">
